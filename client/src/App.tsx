@@ -1,5 +1,3 @@
-function App() {
-    return <></>;
-}
-
-export default App;
+export const App: React.FC = () => {
+    return <>hello world</>;
+};
