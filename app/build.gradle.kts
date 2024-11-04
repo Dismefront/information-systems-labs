@@ -29,7 +29,7 @@ dependencies {
     }
     implementation("org.springframework:spring-context:6.1.14")
     implementation("org.postgresql:postgresql")
-    implementation("org.projectlombok:lombok:1.18.34")
+    implementation("org.springframework.boot:spring-boot-starter-security")
 }
 
 java {
