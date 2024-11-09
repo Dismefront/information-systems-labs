@@ -29,7 +29,7 @@ public class DataInitializer implements CommandLineRunner {
         if (userRepository.findByUsername("admin").isEmpty()) {
             User admin = new User();
             admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode(env.getProperty("ADMIN_PASSWORD")));
+            admin.setPassword(passwordEncoder.encode(env.getProperty("ROOT_ADMIN_PASSWORD")));
             admin.setRoles(Set.of(Role.ROLE_ADMIN));
             userRepository.save(admin);
         }
