@@ -13,6 +13,10 @@ public class Address {
   @Column(nullable = false, length = 13)
   private String zipCode; // Длина строки не должна быть больше 13, Поле не может быть null
 
+  @JoinColumn
+  @OneToOne(cascade = CascadeType.ALL)
+  private Location town; // Поле может быть null
+
   public Long getId() {
     return id;
   }
@@ -36,7 +40,4 @@ public class Address {
   public void setTown(Location town) {
     this.town = town;
   }
-
-  @Column(nullable = true)
-  private Location town; // Поле может быть null
 }

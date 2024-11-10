@@ -11,6 +11,9 @@ public class Coordinates {
 
   @Column private int x; // Максимальное значение поля: 988
 
+  @Column(nullable = false)
+  private Integer y; // Поле не может быть null
+
   public Long getId() {
     return id;
   }
@@ -34,7 +37,4 @@ public class Coordinates {
   public void setY(Integer y) {
     this.y = y;
   }
-
-  @Column(nullable = false)
-  private Integer y; // Поле не может быть null
 }

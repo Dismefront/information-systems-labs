@@ -15,11 +15,11 @@ public class Person {
   @Column(nullable = false)
   private String name; // Поле не может быть null, Строка не может быть пустой
 
-  @Column(nullable = false, name = "eye_color")
+  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private Color eyeColor; // Поле не может быть null
 
-  @Column(nullable = false, name = "hair_color")
+  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private Color hairColor; // Поле может быть null
 
@@ -30,7 +30,7 @@ public class Person {
   @Column(nullable = false)
   private Long height; // Поле может быть null, Значение поля должно быть больше 0
 
-  @Column(nullable = false, name = "nationality")
+  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private Country nationality; // Поле не может быть null
 
