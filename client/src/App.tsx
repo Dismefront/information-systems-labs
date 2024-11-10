@@ -30,8 +30,8 @@ export const App: React.FC = () => {
             </button>
             <button
                 onClick={() => {
-                    fetch('http://localhost:8080/protected', {
-                        method: 'post',
+                    fetch('http://localhost:8080/user/get-current', {
+                        method: 'get',
                         credentials: 'include',
                     }).then();
                 }}

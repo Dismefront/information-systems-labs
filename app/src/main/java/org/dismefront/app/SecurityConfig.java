@@ -1,6 +1,6 @@
-package org.dismefront.data.user;
+package org.dismefront.app;
 
-import jakarta.servlet.http.HttpServletResponse;
+import org.dismefront.data.user.AppUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

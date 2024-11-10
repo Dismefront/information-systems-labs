@@ -1,9 +1,12 @@
 package org.dismefront.api;
 
+import org.dismefront.data.user.AppUserDetailsService;
 import org.dismefront.data.user.User;
 import org.dismefront.data.user.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +37,12 @@ public class Probes {
     @PostMapping("/protected")
     public ResponseEntity<String> protectedRoute() {
         return ResponseEntity.ok().body("Hello world");
+    }
+
+    @GetMapping("/user/get-current")
+    public ResponseEntity<Optional<User>> getCurrentUser(Authentication authentication) {
+        String username = authentication.getName();
+        return ResponseEntity.ok().body(userRepository.findByUsername(username));
     }
 
 }

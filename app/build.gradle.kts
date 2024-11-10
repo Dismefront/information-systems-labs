@@ -12,6 +12,7 @@ plugins {
     id("war")
     id("org.springframework.boot") version "3.3.5"
     id("io.spring.dependency-management") version "1.1.0"
+    id("checkstyle")
 }
 
 repositories {
@@ -36,5 +37,10 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
+}
+
+checkstyle {
+    toolVersion = "10.20.1"
+    configFile = file("config/checkstyle/checkstyle.xml")
 }
 

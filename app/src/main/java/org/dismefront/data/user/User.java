@@ -1,6 +1,7 @@
 package org.dismefront.data.user;
 
 import jakarta.persistence.*;
+import org.dismefront.data.shared.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,7 +9,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @Entity
-@Table(name="users")
+@Table(name="IS1_USER")
 public class User implements UserDetails {
 
 
@@ -19,10 +20,11 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String username;
 
+    @Column(unique = true)
     private String password;
 
     @ElementCollection(targetClass = Role.class)
-    @CollectionTable(name="user_roles", joinColumns = @JoinColumn(name="user_id"))
+    @CollectionTable(name="IS1_USER_ROLES", joinColumns = @JoinColumn(name="user_id"))
     @Enumerated(EnumType.STRING)
     @Column(name="role")
     private Set<Role> roles;
