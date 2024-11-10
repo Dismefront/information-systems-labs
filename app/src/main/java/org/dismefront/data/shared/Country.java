@@ -1,8 +1,8 @@
 package org.dismefront.data.shared;
 
 public enum Country {
-    UNITED_KINGDOM,
-    SPAIN,
-    ITALY,
-    JAPAN;
+  UNITED_KINGDOM,
+  SPAIN,
+  ITALY,
+  JAPAN;
 }

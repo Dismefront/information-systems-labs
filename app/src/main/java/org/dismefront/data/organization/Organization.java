@@ -4,81 +4,85 @@ import jakarta.persistence.*;
 import org.dismefront.data.address.Address;
 
 @Entity
-@Table(name="IS1_ORGANIZATION")
+@Table(name = "IS1_ORGANIZATION")
 public class Organization {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    @Column(nullable = false)
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    @JoinColumn(nullable = false)
-    @OneToOne(cascade = CascadeType.ALL)
-    private Address officialAddress; //Поле не может быть null
-    @Column
-    private int annualTurnover; //Значение поля должно быть больше 0
-    @Column
-    private Long employeesCount; //Поле может быть null, Значение поля должно быть больше 0
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer
+      id; // Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно
 
-    @Column
-    private String fullName; //Значение этого поля должно быть уникальным, Поле может быть null
+  // быть уникальным, Значение этого поля должно генерироваться автоматически
 
-    @JoinColumn(nullable = false)
-    @OneToOne(cascade = CascadeType.ALL)
-    private Address postalAddress; //Поле не может быть null
+  @Column(nullable = false)
+  private String name; // Поле не может быть null, Строка не может быть пустой
 
-    public Integer getId() {
-        return id;
-    }
+  @JoinColumn(nullable = false)
+  @OneToOne(cascade = CascadeType.ALL)
+  private Address officialAddress; // Поле не может быть null
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  @Column private int annualTurnover; // Значение поля должно быть больше 0
+  @Column private Long employeesCount; // Поле может быть null, Значение поля должно быть больше 0
 
-    public String getName() {
-        return name;
-    }
+  @Column
+  private String fullName; // Значение этого поля должно быть уникальным, Поле может быть null
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  @JoinColumn(nullable = false)
+  @OneToOne(cascade = CascadeType.ALL)
+  private Address postalAddress; // Поле не может быть null
 
-    public Address getOfficialAddress() {
-        return officialAddress;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public void setOfficialAddress(Address officialAddress) {
-        this.officialAddress = officialAddress;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public int getAnnualTurnover() {
-        return annualTurnover;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setAnnualTurnover(int annualTurnover) {
-        this.annualTurnover = annualTurnover;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public Long getEmployeesCount() {
-        return employeesCount;
-    }
+  public Address getOfficialAddress() {
+    return officialAddress;
+  }
 
-    public void setEmployeesCount(Long employeesCount) {
-        this.employeesCount = employeesCount;
-    }
+  public void setOfficialAddress(Address officialAddress) {
+    this.officialAddress = officialAddress;
+  }
 
-    public String getFullName() {
-        return fullName;
-    }
+  public int getAnnualTurnover() {
+    return annualTurnover;
+  }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
+  public void setAnnualTurnover(int annualTurnover) {
+    this.annualTurnover = annualTurnover;
+  }
 
-    public Address getPostalAddress() {
-        return postalAddress;
-    }
+  public Long getEmployeesCount() {
+    return employeesCount;
+  }
 
-    public void setPostalAddress(Address postalAddress) {
-        this.postalAddress = postalAddress;
-    }
+  public void setEmployeesCount(Long employeesCount) {
+    this.employeesCount = employeesCount;
+  }
+
+  public String getFullName() {
+    return fullName;
+  }
+
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
+  }
+
+  public Address getPostalAddress() {
+    return postalAddress;
+  }
+
+  public void setPostalAddress(Address postalAddress) {
+    this.postalAddress = postalAddress;
+  }
 }
