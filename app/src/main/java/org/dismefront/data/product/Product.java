@@ -25,8 +25,8 @@ public class Product {
   @Column(nullable = false)
   private java.time.ZonedDateTime creationDate; // Поле не может быть null, Значение этого поля должно генерироваться автоматически
 
-  @Enumerated(EnumType.STRING)
   @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
   private UnitOfMeasure unitOfMeasure; // Поле не может быть null
 
   @JoinColumn(name = "manufacturer_id")

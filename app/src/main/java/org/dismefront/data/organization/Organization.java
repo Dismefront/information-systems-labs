@@ -8,10 +8,8 @@ import org.dismefront.data.address.Address;
 public class Organization {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer
-      id; // Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно
-
-  // быть уникальным, Значение этого поля должно генерироваться автоматически
+  private Long
+      id; // Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
 
   @Column(nullable = false)
   private String name; // Поле не может быть null, Строка не может быть пустой
@@ -30,11 +28,11 @@ public class Organization {
   @OneToOne(cascade = CascadeType.ALL)
   private Address postalAddress; // Поле не может быть null
 
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
