@@ -1,9 +1,11 @@
 package org.dismefront.data.coordinates;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "IS1_COORDINATES")
+@Data
 public class Coordinates {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,28 +15,4 @@ public class Coordinates {
 
   @Column(nullable = false)
   private Integer y; // Поле не может быть null
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public int getX() {
-    return x;
-  }
-
-  public void setX(int x) {
-    this.x = x;
-  }
-
-  public Integer getY() {
-    return y;
-  }
-
-  public void setY(Integer y) {
-    this.y = y;
-  }
 }

@@ -1,6 +1,9 @@
 package org.dismefront.app;
 
 import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.dismefront.data.user.AppUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,13 +22,10 @@ import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
   private final AppUserDetailsService appUserDetailsService;
-
-  public SecurityConfig(AppUserDetailsService appUserDetailsService) {
-    this.appUserDetailsService = appUserDetailsService;
-  }
 
   @Bean
   public PasswordEncoder passwordEncoder() {

@@ -37,6 +37,8 @@ dependencies {
     implementation("org.springframework:spring-context:6.1.14")
     implementation("org.postgresql:postgresql")
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
 }
 
 java {

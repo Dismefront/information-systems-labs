@@ -1,6 +1,7 @@
 package org.dismefront.data.product;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.dismefront.data.coordinates.CoordinatesRepository;
 import org.dismefront.data.organization.OrganizationRepository;
 import org.dismefront.data.person.PersonRepository;
@@ -9,21 +10,13 @@ import org.springframework.stereotype.Service;
 import java.time.ZonedDateTime;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
     private final CoordinatesRepository coordinatesRepository;
     private final PersonRepository personRepository;
     private final OrganizationRepository organizationRepository;
-    public ProductService(ProductRepository productRepository,
-                          CoordinatesRepository coordinatesRepository,
-                          PersonRepository personRepository,
-                          OrganizationRepository organizationRepository) {
-        this.productRepository = productRepository;
-        this.coordinatesRepository = coordinatesRepository;
-        this.personRepository = personRepository;
-        this.organizationRepository = organizationRepository;
-    }
 
     @Transactional
     public Product saveProduct(ProductRequest productRequest) {

@@ -2,6 +2,8 @@ package org.dismefront.api.auth;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,13 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public class AuthController {
 
   private final AuthenticationManager authenticationManager;
-
-  public AuthController(AuthenticationManager authenticationManager) {
-    this.authenticationManager = authenticationManager;
-  }
 
   @PostMapping("/login")
   public ResponseEntity<String> login(

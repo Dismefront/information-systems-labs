@@ -3,12 +3,15 @@ package org.dismefront.data.user;
 import jakarta.persistence.*;
 import java.util.Collection;
 import java.util.Set;
+
+import lombok.Data;
 import org.dismefront.data.shared.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "IS1_USER")
+@Data
 public class User implements UserDetails {
 
   @Id
@@ -27,41 +30,9 @@ public class User implements UserDetails {
   @Column(name = "role")
   private Set<Role> roles;
 
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return null;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public Set<Role> getRoles() {
-    return roles;
-  }
-
-  public void setRoles(Set<Role> roles) {
-    this.roles = roles;
   }
 
   @Override

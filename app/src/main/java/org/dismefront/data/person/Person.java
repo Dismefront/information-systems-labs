@@ -1,12 +1,14 @@
 package org.dismefront.data.person;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.dismefront.data.location.Location;
 import org.dismefront.data.shared.Color;
 import org.dismefront.data.shared.Country;
 
 @Entity
 @Table(name = "IS1_PERSON")
+@Data
 public class Person {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,60 +35,4 @@ public class Person {
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private Country nationality; // Поле не может быть null
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public Color getEyeColor() {
-    return eyeColor;
-  }
-
-  public void setEyeColor(Color eyeColor) {
-    this.eyeColor = eyeColor;
-  }
-
-  public Color getHairColor() {
-    return hairColor;
-  }
-
-  public void setHairColor(Color hairColor) {
-    this.hairColor = hairColor;
-  }
-
-  public Location getLocation() {
-    return location;
-  }
-
-  public void setLocation(Location location) {
-    this.location = location;
-  }
-
-  public Long getHeight() {
-    return height;
-  }
-
-  public void setHeight(Long height) {
-    this.height = height;
-  }
-
-  public Country getNationality() {
-    return nationality;
-  }
-
-  public void setNationality(Country nationality) {
-    this.nationality = nationality;
-  }
 }

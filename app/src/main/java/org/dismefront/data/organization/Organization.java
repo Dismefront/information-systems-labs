@@ -1,10 +1,12 @@
 package org.dismefront.data.organization;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.dismefront.data.address.Address;
 
 @Entity
 @Table(name = "IS1_ORGANIZATION")
+@Data
 public class Organization {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,60 +29,4 @@ public class Organization {
   @JoinColumn(nullable = false)
   @OneToOne(cascade = CascadeType.ALL)
   private Address postalAddress; // Поле не может быть null
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public Address getOfficialAddress() {
-    return officialAddress;
-  }
-
-  public void setOfficialAddress(Address officialAddress) {
-    this.officialAddress = officialAddress;
-  }
-
-  public int getAnnualTurnover() {
-    return annualTurnover;
-  }
-
-  public void setAnnualTurnover(int annualTurnover) {
-    this.annualTurnover = annualTurnover;
-  }
-
-  public Long getEmployeesCount() {
-    return employeesCount;
-  }
-
-  public void setEmployeesCount(Long employeesCount) {
-    this.employeesCount = employeesCount;
-  }
-
-  public String getFullName() {
-    return fullName;
-  }
-
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
-  }
-
-  public Address getPostalAddress() {
-    return postalAddress;
-  }
-
-  public void setPostalAddress(Address postalAddress) {
-    this.postalAddress = postalAddress;
-  }
 }

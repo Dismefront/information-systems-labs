@@ -2,6 +2,9 @@ package org.dismefront.app;
 
 import jakarta.transaction.Transactional;
 import java.util.Set;
+
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.dismefront.data.location.Location;
 import org.dismefront.data.person.Person;
 import org.dismefront.data.person.PersonRepository;
@@ -16,23 +19,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
 
   private final UserRepository userRepository;
   private final PersonRepository personRepository;
   private final PasswordEncoder passwordEncoder;
   private final Environment env;
-
-  public DataInitializer(
-      UserRepository userRepository,
-      PasswordEncoder passwordEncoder,
-      Environment env,
-      PersonRepository personRepository) {
-    this.userRepository = userRepository;
-    this.passwordEncoder = passwordEncoder;
-    this.env = env;
-    this.personRepository = personRepository;
-  }
 
   @Override
   @Transactional

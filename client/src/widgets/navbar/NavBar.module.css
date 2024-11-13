@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.container a {
+    color: black;
+    text-decoration: none;
+}
+
+.pages {
+    display: flex;
+    gap: 1rem;
+}
+
+.additional {
+    display: flex;
+    gap: 1rem;
+}
+
+.active {
+    color: blue !important;
+}
