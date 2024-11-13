@@ -6,10 +6,9 @@ import org.dismefront.data.product.Product;
 import org.dismefront.data.product.ProductRequest;
 import org.dismefront.data.product.ProductService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/product")
@@ -27,6 +26,11 @@ public class ProductController {
             System.out.println(ex.getMessage());
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity list() {
+        return ResponseEntity.badRequest().body("List is now not awailable");
     }
 
 }

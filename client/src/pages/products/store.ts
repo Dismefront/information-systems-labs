@@ -2,7 +2,7 @@ import { API_ENDPOINT } from '@/App';
 import { createEffect } from 'effector';
 
 const fetchFx = createEffect(async () => {
-    const data = await fetch(`${API_ENDPOINT}/alive`, {
+    const data = await fetch(`${API_ENDPOINT}/product/list`, {
         method: 'get',
         credentials: 'include',
         headers: {

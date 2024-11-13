@@ -8,27 +8,30 @@ export const NavBar: React.FC = () => {
     return (
         <section className={styles.container}>
             <nav className={styles.pages}>
+                <NavLink to="/" className={activeHandler}>
+                    Home
+                </NavLink>
                 <NavLink to="/products" className={activeHandler}>
                     Products
                 </NavLink>
-                <NavLink to="/" className={activeHandler}>
+                <NavLink to="/people" className={activeHandler}>
                     People
                 </NavLink>
-                <NavLink to="/" className={activeHandler}>
+                <NavLink to="/organizations" className={activeHandler}>
                     Organizations
                 </NavLink>
-                <NavLink to="/" className={activeHandler}>
+                <NavLink to="/locations" className={activeHandler}>
                     Locations
                 </NavLink>
-                <NavLink to="/" className={activeHandler}>
+                <NavLink to="/coordinates" className={activeHandler}>
                     Coordinates
                 </NavLink>
-                <NavLink to="/" className={activeHandler}>
+                <NavLink to="/addresses" className={activeHandler}>
                     Addresses
                 </NavLink>
             </nav>
             <nav className={styles.additional}>
-                <NavLink to="/" className={activeHandler}>
+                <NavLink to="/logout" className={activeHandler}>
                     Log out
                 </NavLink>
             </nav>
