@@ -46,7 +46,7 @@ public class SecurityConfig {
     http.authorizeHttpRequests(
             (requests) ->
                 requests
-                    .requestMatchers("/register", "/login", "/alive", "/db-ready", "/login?logout")
+                    .requestMatchers("/api/register", "/api/login", "/api/alive", "/api/db-ready")
                     .permitAll()
                     .anyRequest()
                     .authenticated())

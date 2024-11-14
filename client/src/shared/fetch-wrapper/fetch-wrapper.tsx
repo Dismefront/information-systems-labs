@@ -10,6 +10,7 @@ export const fetchWrapper = async (
         const response = await origFetch(input, init);
         if (response.status >= 400) {
             const text = await response.text();
+            console.log(text);
             toast.error(text.toString());
         }
         return response;

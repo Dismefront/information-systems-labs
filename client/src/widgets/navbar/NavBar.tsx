@@ -1,3 +1,4 @@
+import { useAuth } from '@/shared/auth-controller/useAuth';
 import { NavLink, NavLinkRenderProps } from 'react-router-dom';
 import styles from './NavBar.module.css';
 
@@ -5,6 +6,7 @@ export const NavBar: React.FC = () => {
     const activeHandler = ({ isActive }: NavLinkRenderProps) => {
         return isActive ? styles.active : undefined;
     };
+    const isAuthenticated = useAuth();
     return (
         <section className={styles.container}>
             <nav className={styles.pages}>
@@ -31,9 +33,15 @@ export const NavBar: React.FC = () => {
                 </NavLink>
             </nav>
             <nav className={styles.additional}>
-                <NavLink to="/logout" className={activeHandler}>
-                    Log out
-                </NavLink>
+                {isAuthenticated ? (
+                    <NavLink to="/logout" className={activeHandler}>
+                        Log out
+                    </NavLink>
+                ) : (
+                    <NavLink to="/login" className={activeHandler}>
+                        Log in
+                    </NavLink>
+                )}
             </nav>
         </section>
     );
