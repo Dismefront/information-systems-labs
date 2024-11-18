@@ -10,15 +10,16 @@ interface AuthProps {
 
 interface CurrentUser {
     username: string;
-    isAdmin: boolean;
+    roles: string[];
+    id: string;
 }
 
-export const $currentUser = createStore<CurrentUser | null>(null, { skipVoid: true });
+export const $currentUser = createStore<CurrentUser | null>(null);
 export const getCurrentUserEv = createEvent();
 export const resetCurrentUserEv = createEvent();
 export const getCurrentUserFx = createEffect(async (currentUser: CurrentUser | null) => {
     if (currentUser !== null) {
-        return;
+        return currentUser;
     }
     const res = await fetch(`${API_ENDPOINT}/user/get-current`, {
         method: 'get',

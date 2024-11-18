@@ -39,6 +39,16 @@ export const NavBar: React.FC = () => {
                 </NavLink>
             </nav>
             <nav className={styles.additional}>
+                {currentUser?.roles.includes('ROLE_ADMIN') && (
+                    <NavLink to="/admin-requests" className={activeHandler}>
+                        Admin Requests
+                    </NavLink>
+                )}
+                {!currentUser?.roles.includes('ROLE_ADMIN') && (
+                    <NavLink to="/become-admin" className={activeHandler}>
+                        Become Admin
+                    </NavLink>
+                )}
                 {isAuthenticated ? (
                     <NavLink to="/logout" className={activeHandler}>
                         Log out ({currentUser?.username})
