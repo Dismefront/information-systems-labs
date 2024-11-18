@@ -1,11 +1,9 @@
-package org.dismefront.data.product;
+package org.dismefront.api.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.dismefront.data.organization.Organization;
 import org.dismefront.data.shared.UnitOfMeasure;
 
-import java.time.ZonedDateTime;
 import java.util.Optional;
 
 @AllArgsConstructor

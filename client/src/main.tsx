@@ -17,7 +17,7 @@ const router = createBrowserRouter([
         element: <App />,
     },
     {
-        path: '/products',
+        path: '/products/:page',
         element: (
             <AuthKeeper>
                 <ProductsPage />

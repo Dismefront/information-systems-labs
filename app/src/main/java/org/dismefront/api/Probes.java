@@ -37,10 +37,4 @@ public class Probes {
   public ResponseEntity<String> protectedRoute() {
     return ResponseEntity.ok().body("Hello world");
   }
-
-  @GetMapping("/user/get-current")
-  public ResponseEntity<Optional<User>> getCurrentUser(Authentication authentication) {
-    String username = authentication.getName();
-    return ResponseEntity.ok().body(userRepository.findByUsername(username));
-  }
 }

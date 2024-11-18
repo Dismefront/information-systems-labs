@@ -1,5 +1,6 @@
 package org.dismefront.data.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Collection;
 import java.util.Set;
@@ -22,6 +23,7 @@ public class User implements UserDetails {
   private String username;
 
   @Column(unique = true)
+  @JsonIgnore
   private String password;
 
   @ElementCollection(targetClass = Role.class)
@@ -31,6 +33,7 @@ public class User implements UserDetails {
   private Set<Role> roles;
 
   @Override
+  @JsonIgnore
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return null;
   }
@@ -46,6 +49,7 @@ public class User implements UserDetails {
   }
 
   @Override
+  @JsonIgnore
   public boolean isCredentialsNonExpired() {
     return UserDetails.super.isCredentialsNonExpired();
   }

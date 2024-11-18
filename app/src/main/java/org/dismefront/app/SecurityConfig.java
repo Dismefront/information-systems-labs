@@ -1,7 +1,17 @@
 package org.dismefront.app;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.dismefront.data.user.AppUserDetailsService;
@@ -17,8 +27,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
+import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.filter.GenericFilterBean;
 
 @Configuration
 @EnableWebSecurity
@@ -66,7 +80,7 @@ public class SecurityConfig {
         .sessionManagement(
             (session) -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
         .logout(
-            logout -> logout.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler()));
+            logout -> logout.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler()).logoutUrl("/api/logout"));
 
     return http.build();
   }

@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
 
 const origFetch = window.fetch;
@@ -10,8 +11,13 @@ export const fetchWrapper = async (
         const response = await origFetch(input, init);
         if (response.status >= 400) {
             const text = await response.text();
-            console.log(text);
-            toast.error(text.toString());
+            if (text) {
+                toast.error(text.toString());
+            }
+        }
+        if (response.status === 403) {
+            Cookies.set('JSESSIONID', '');
+            toast.error('Logged out');
         }
         return response;
     } catch (ex: any) {

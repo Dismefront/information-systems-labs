@@ -6,6 +6,7 @@ DB_URL=
 DB_USER=
 DB_PASSWORD=
 ROOT_ADMIN_PASSWORD=
+server.servlet.session.cookie.http-only=false
 ```
 
 `ROOT_ADMIN_PASSWORD` инициализируется в начале работы приложения. 

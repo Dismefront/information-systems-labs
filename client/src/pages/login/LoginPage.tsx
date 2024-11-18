@@ -1,9 +1,12 @@
-import { loginFx } from '@/shared/auth-controller/auth';
+import { $authError, loginFx, registerFx } from '@/shared/auth-controller/auth';
+import { useUnit } from 'effector-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const LoginPage: React.FC = () => {
     const [error, setError] = useState<string>();
+    const authError = useUnit($authError);
+    const navigate = useNavigate();
 
     const passCheck = (
         errorMsg: string,
@@ -31,7 +34,7 @@ export const LoginPage: React.FC = () => {
             loginFx({
                 username: eventTarget.username.value,
                 password: eventTarget.password.value,
-            });
+            }).then(() => navigate('/'));
     };
 
     const handleSubmitRegister = (e: React.FormEvent<HTMLFormElement>) => {
@@ -50,7 +53,12 @@ export const LoginPage: React.FC = () => {
                     return v.value !== eventTarget.password.value;
                 },
                 eventTarget.passwordRepeat
-            );
+            ) &&
+            registerFx({
+                username: eventTarget.username.value,
+                password: eventTarget.password.value,
+                passwordRepeat: eventTarget.passwordRepeat.value,
+            }).then(() => navigate('/'));
     };
 
     return (
@@ -71,7 +79,7 @@ export const LoginPage: React.FC = () => {
                 <input name="passwordRepeat" type="password" placeholder="repeat password" />
                 <button>Register</button>
             </form>
-            <p style={{ color: 'red' }}>{error}</p>
+            <p style={{ color: 'red' }}>{error || authError}</p>
         </>
     );
 };

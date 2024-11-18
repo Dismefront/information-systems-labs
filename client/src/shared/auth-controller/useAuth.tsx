@@ -1,11 +1,14 @@
+import { useUnit } from 'effector-react';
 import Cookies from 'js-cookie';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { $isAuthenticated, setAuthenticatedEv } from './auth';
 
 export const useAuth = () => {
-    const [isAuthenticated, setAuthenticated] = useState<boolean>();
+    const isAuthenticated = useUnit($isAuthenticated);
     useEffect(() => {
         const sessionCookie = Cookies.get('JSESSIONID');
-        setAuthenticated(Boolean(sessionCookie));
+        const isAuthenticated = Boolean(sessionCookie);
+        setAuthenticatedEv(isAuthenticated);
     }, []);
 
     return isAuthenticated;
