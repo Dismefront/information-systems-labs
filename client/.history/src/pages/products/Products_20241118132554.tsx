@@ -7,8 +7,6 @@ import { useUnit } from 'effector-react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { products } from './store';
-import { API_ENDPOINT } from '@/App';
-import { SpecialCases } from './SpecialCases';
 
 export const ProductsPage: React.FC = () => {
     const data = useUnit(products.$data);
@@ -34,7 +32,6 @@ export const ProductsPage: React.FC = () => {
                         totalPages={data.totalPages}
                         currentPage={data.number + 1}
                     />
-                    <SpecialCases />
                 </>
             )}
         </>

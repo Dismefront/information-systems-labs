@@ -8,7 +8,6 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { products } from './store';
 import { API_ENDPOINT } from '@/App';
-import { SpecialCases } from './SpecialCases';
 
 export const ProductsPage: React.FC = () => {
     const data = useUnit(products.$data);
@@ -28,13 +27,39 @@ export const ProductsPage: React.FC = () => {
                 <>
                     <CreateProductPopup />
                     <UpdateProductPopup />
+                    <button onClick={() => {
+                        fetch(`${API_ENDPOINT}/product/by-manufacturer`, {
+                            method: 'get',
+                            credentials: 'include',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                    }}>count-by-rating</button>
+                    <button onClick={() => {
+                        fetch(`${API_ENDPOINT}/product/by-rating?rating=32`, {
+                            method: 'get',
+                            credentials: 'include',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                    }}>count-by-rating</button>
+                    <button onClick={() => {
+                        fetch(`${API_ENDPOINT}/product/by-partNumber?partNumber=8800`, {
+                            method: 'get',
+                            credentials: 'include',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                    }}>count-by-partNumber</button>
                     <ProductsTable data={data} />
                     <Pagination
                         path="/products"
                         totalPages={data.totalPages}
                         currentPage={data.number + 1}
                     />
-                    <SpecialCases />
                 </>
             )}
         </>

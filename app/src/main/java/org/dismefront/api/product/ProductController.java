@@ -78,4 +78,30 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/by-manufacturer")
+    public ResponseEntity byManufacturer() {
+        return ResponseEntity.ok().body(productService.getProductsGroupedByManufacturer());
+    }
+
+    @GetMapping("/by-rating")
+    public ResponseEntity byRating(@RequestParam int rating) {
+        return ResponseEntity.ok().body(productService.countObjectsByRating(rating));
+    }
+
+    @GetMapping("/by-partNumber")
+    public ResponseEntity byPartNumber(@RequestParam String partNumber) {
+        return ResponseEntity.ok().body(productService.countProductsByPartNumber(partNumber));
+    }
+
+    @GetMapping("/products-by-manufacturer")
+    public ResponseEntity getProductsByManufacturerId(@RequestParam int manufacturerId) {
+        return ResponseEntity.ok().body(productService.getProductsByManufacturer(manufacturerId));
+    }
+
+    @GetMapping("/reduce-price")
+    public ResponseEntity getProductsByManufacturerId(@RequestParam double percent) {
+        productService.reducePricesByPercent(percent);
+        return ResponseEntity.ok().build();
+    }
+
 }

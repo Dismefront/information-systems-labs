@@ -74,7 +74,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION reduce_prices_by_percentage(p_percentage NUMERIC)
+CREATE OR REPLACE FUNCTION reduce_prices_by_percentage(p_percentage DOUBLE PRECISION)
 RETURNS VOID AS $$
 BEGIN
     IF p_percentage <= 0 OR p_percentage > 100 THEN

@@ -1,5 +1,6 @@
 package org.dismefront.data.product;
 
+import jakarta.persistence.Tuple;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.dismefront.api.product.ProductRequest;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -69,6 +71,26 @@ public class ProductService {
     public Page<ProductManaged> getProductList(int page, int size, String username, boolean isAdmin) {
         Pageable pageable = PageRequest.of(page, size);
         return productRepository.findProductsWithEditableFlag(username, EventName.PRODUCT_CREATED, isAdmin, pageable);
+    }
+
+    public List<Object[]> getProductsGroupedByManufacturer() {
+        return productRepository.countProductsByManufacturer();
+    }
+
+    public Long countObjectsByRating(int rating) {
+        return productRepository.countProductsByRating(rating);
+    }
+
+    public Long countProductsByPartNumber(String partNumber) {
+        return productRepository.countProductsByPartNumber(partNumber);
+    }
+
+    public List<Object[]> getProductsByManufacturer(int manufacturerId) {
+        return productRepository.getProductsByManufacturer(manufacturerId);
+    }
+
+    public void reducePricesByPercent(double percent) {
+        productRepository.reducePricesByPercentage(percent);
     }
 
 }
