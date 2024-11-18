@@ -46,6 +46,7 @@ public class ProductService {
         product.setPartNumber(productRequest.getPartNumber());
 
         Product savedProduct = productRepository.save(product);
+        productRepository.flush();
         Event event = new Event(EventName.PRODUCT_CREATED, username, savedProduct.getId(), new Timestamp(new Date().getTime()));
         eventRepository.save(event);
         return savedProduct;

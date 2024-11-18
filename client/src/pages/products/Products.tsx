@@ -1,5 +1,6 @@
 import { NavBar } from '@/widgets/navbar/NavBar';
 import { Pagination } from '@/widgets/pagination/Pagination';
+import { CreateProductPopup } from '@/widgets/products/CreateProductPopup';
 import { ProductsTable } from '@/widgets/products/ProductsTable';
 import { useUnit } from 'effector-react';
 import { useEffect } from 'react';
@@ -22,10 +23,11 @@ export const ProductsPage: React.FC = () => {
                 'Загрузка'
             ) : (
                 <>
+                    <CreateProductPopup />
                     <ProductsTable data={data} />
                     <Pagination
                         path="/products"
-                        totalPages={data.totalElements}
+                        totalPages={data.totalPages}
                         currentPage={data.number + 1}
                     />
                 </>

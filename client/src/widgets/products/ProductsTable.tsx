@@ -35,9 +35,11 @@ export const ProductsTable: React.FC<ProductsTableProps> = ({ data }) => {
                             <td>{x.manufacturer.name}</td>
                             <td>{x.manufactureCost}</td>
                             <td>{`(${x.coordinates.x}, ${x.coordinates.y})`}</td>
-                            <td>
-                                <button>edit</button>
-                            </td>
+                            {x.editable && (
+                                <td>
+                                    <button>edit</button>
+                                </td>
+                            )}
                         </tr>
                     );
                 })}

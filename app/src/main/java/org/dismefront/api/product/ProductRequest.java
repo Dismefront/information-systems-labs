@@ -32,4 +32,6 @@ public class ProductRequest {
         this.ownerId = ownerId;
         this.manufactureCost = manufactureCost;
     }
+
+    public ProductRequest() {}
 }
