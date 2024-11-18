@@ -4,6 +4,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { App } from './App';
 import { AdminRequests } from './pages/admin-requests/AdminRequests';
 import { LoginPage } from './pages/login/LoginPage';
+import { OrganizationsPage } from './pages/organizations/Organizations';
+import { PersonsPage } from './pages/persons/Persons';
 import { ProductsPage } from './pages/products/Products';
 import { AuthKeeper } from './shared/auth-controller/AuthKeeper';
 import { BecomeAdmin } from './shared/become-admin/BecomeAdmin';
@@ -22,6 +24,22 @@ const router = createBrowserRouter([
         element: (
             <AuthKeeper>
                 <ProductsPage />
+            </AuthKeeper>
+        ),
+    },
+    {
+        path: '/people/:page',
+        element: (
+            <AuthKeeper>
+                <PersonsPage />
+            </AuthKeeper>
+        ),
+    },
+    {
+        path: '/organizations/:page',
+        element: (
+            <AuthKeeper>
+                <OrganizationsPage />
             </AuthKeeper>
         ),
     },

@@ -22,10 +22,10 @@ export const NavBar: React.FC = () => {
                 <NavLink to="/products/1" className={activeHandler}>
                     Products
                 </NavLink>
-                <NavLink to="/people" className={activeHandler}>
+                <NavLink to="/people/1" className={activeHandler}>
                     People
                 </NavLink>
-                <NavLink to="/organizations" className={activeHandler}>
+                <NavLink to="/organizations/1" className={activeHandler}>
                     Organizations
                 </NavLink>
                 <NavLink to="/locations" className={activeHandler}>

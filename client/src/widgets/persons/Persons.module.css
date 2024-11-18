@@ -1,0 +1,40 @@
+.table {
+    border-collapse: collapse;
+}
+
+.table th {
+    border: 1px solid black;
+}
+
+.table td {
+    border: 1px solid black;
+}
+
+.popup {
+    background-color: rgb(119, 119, 119);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    width: 300px;
+}
+
+.popup .textCreate {
+    font-weight: 700;
+}
+
+.withLabel {
+    display: flex;
+    justify-content: space-between;
+}
+
+.withLabel select {
+    max-width: 100px;
+}
+
+.error {
+    font-size: 0.7rem;
+    color: red;
+}
