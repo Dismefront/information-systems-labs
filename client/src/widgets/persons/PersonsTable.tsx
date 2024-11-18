@@ -34,12 +34,11 @@ export const PersonsTable: React.FC<PersonsTableProps> = ({ data }) => {
                                 <td>
                                     <button
                                         onClick={() => {
-                                            console.log(x.id);
                                             setUpdatePopupPropsEv({
                                                 opened: true,
                                                 id: x.id,
                                                 name: x.name,
-                                                locationId: x.locationId,
+                                                locationId: x.location.id,
                                                 eyeColor: x.eyeColor,
                                                 hairColor: x.hairColor,
                                                 height: x.height,

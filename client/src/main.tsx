@@ -2,7 +2,10 @@ import { createRoot } from 'react-dom/client';
 import { Toaster } from 'react-hot-toast';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { App } from './App';
+import { AddressPage } from './pages/addresses/Addresses';
 import { AdminRequests } from './pages/admin-requests/AdminRequests';
+import { CoordinatesPage } from './pages/coordinates/CoordinatesPage';
+import { LocationsPage } from './pages/locations/Locations';
 import { LoginPage } from './pages/login/LoginPage';
 import { OrganizationsPage } from './pages/organizations/Organizations';
 import { PersonsPage } from './pages/persons/Persons';
@@ -40,6 +43,30 @@ const router = createBrowserRouter([
         element: (
             <AuthKeeper>
                 <OrganizationsPage />
+            </AuthKeeper>
+        ),
+    },
+    {
+        path: '/locations/:page',
+        element: (
+            <AuthKeeper>
+                <LocationsPage />
+            </AuthKeeper>
+        ),
+    },
+    {
+        path: '/coordinates/:page',
+        element: (
+            <AuthKeeper>
+                <CoordinatesPage />
+            </AuthKeeper>
+        ),
+    },
+    {
+        path: '/addresses/:page',
+        element: (
+            <AuthKeeper>
+                <AddressPage />
             </AuthKeeper>
         ),
     },

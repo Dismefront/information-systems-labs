@@ -23,7 +23,7 @@ export const UpdateProductPopup: React.FC = () => {
         })
             .then((res) => res.json())
             .then((data) => updateManufacturerList(data));
-        fetch(`${API_ENDPOINT}/location/get-all`, {
+        fetch(`${API_ENDPOINT}/coordinates/get-all`, {
             method: 'get',
             credentials: 'include',
             headers: {

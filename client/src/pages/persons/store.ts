@@ -100,7 +100,10 @@ sample({
 });
 
 $updatePopupOpen
-    .on(setUpdatePopupPropsEv, (_, payload) => payload)
+    .on(setUpdatePopupPropsEv, (_, payload) => {
+        console.log(payload);
+        return payload;
+    })
     .on(updateFx.doneData, (data) => ({ ...data, opened: false }));
 
 $error

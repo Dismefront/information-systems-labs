@@ -28,13 +28,13 @@ export const NavBar: React.FC = () => {
                 <NavLink to="/organizations/1" className={activeHandler}>
                     Organizations
                 </NavLink>
-                <NavLink to="/locations" className={activeHandler}>
+                <NavLink to="/locations/1" className={activeHandler}>
                     Locations
                 </NavLink>
-                <NavLink to="/coordinates" className={activeHandler}>
+                <NavLink to="/coordinates/1" className={activeHandler}>
                     Coordinates
                 </NavLink>
-                <NavLink to="/addresses" className={activeHandler}>
+                <NavLink to="/addresses/1" className={activeHandler}>
                     Addresses
                 </NavLink>
             </nav>
