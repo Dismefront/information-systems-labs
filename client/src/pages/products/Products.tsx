@@ -2,6 +2,7 @@ import { NavBar } from '@/widgets/navbar/NavBar';
 import { Pagination } from '@/widgets/pagination/Pagination';
 import { CreateProductPopup } from '@/widgets/products/CreateProductPopup';
 import { ProductsTable } from '@/widgets/products/ProductsTable';
+import { UpdateProductPopup } from '@/widgets/products/UpdateProductPopup';
 import { useUnit } from 'effector-react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -24,6 +25,7 @@ export const ProductsPage: React.FC = () => {
             ) : (
                 <>
                     <CreateProductPopup />
+                    <UpdateProductPopup />
                     <ProductsTable data={data} />
                     <Pagination
                         path="/products"

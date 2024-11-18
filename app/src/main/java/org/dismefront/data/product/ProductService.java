@@ -29,9 +29,29 @@ public class ProductService {
     private final EventRepository eventRepository;
 
     @Transactional
+    public Product updateProduct(ProductRequest productRequest, String username, Long product_id) {
+        Product product = productRepository.getReferenceById(product_id);
+        productParams(productRequest, product);
+
+        Event event = new Event(EventName.PRODUCT_UPDATED, username, product.getId(), new Timestamp(new Date().getTime()));
+        eventRepository.save(event);
+        return productRepository.save(product);
+    }
+
+    @Transactional
     public Product saveProduct(ProductRequest productRequest, String username) {
 
         Product product = new Product();
+        productParams(productRequest, product);
+
+        Product savedProduct = productRepository.save(product);
+        productRepository.flush();
+        Event event = new Event(EventName.PRODUCT_CREATED, username, savedProduct.getId(), new Timestamp(new Date().getTime()));
+        eventRepository.save(event);
+        return savedProduct;
+    }
+
+    private void productParams(ProductRequest productRequest, Product product) {
         product.setName(productRequest.getName());
         product.setPrice(productRequest.getPrice());
         product.setCoordinates(coordinatesRepository.getReferenceById(productRequest.getCoordinatesId()));
@@ -44,12 +64,6 @@ public class ProductService {
         product.setManufactureCost(productRequest.getManufactureCost());
         product.setRating(productRequest.getRating());
         product.setPartNumber(productRequest.getPartNumber());
-
-        Product savedProduct = productRepository.save(product);
-        productRepository.flush();
-        Event event = new Event(EventName.PRODUCT_CREATED, username, savedProduct.getId(), new Timestamp(new Date().getTime()));
-        eventRepository.save(event);
-        return savedProduct;
     }
 
     public Page<ProductManaged> getProductList(int page, int size, String username, boolean isAdmin) {

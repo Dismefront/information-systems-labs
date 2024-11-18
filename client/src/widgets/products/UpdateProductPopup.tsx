@@ -5,10 +5,10 @@ import { useEffect, useState } from 'react';
 import Popup from 'reactjs-popup';
 import styles from './ProductsTable.module.css';
 
-export const CreateProductPopup: React.FC = () => {
+export const UpdateProductPopup: React.FC = () => {
     const [popupOpen, setPopupOpen] = useUnit([
-        products.$createPopupOpen,
-        products.setCreatePopupPropsEv,
+        products.$updatePopupOpen,
+        products.setUpdatePopupPropsEv,
     ]);
     const [manufacturerList, updateManufacturerList] = useState<any[]>([]);
     const [ownerList, updateOwnerList] = useState<any[]>([]);
@@ -46,7 +46,7 @@ export const CreateProductPopup: React.FC = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const eventTarget = e.target as any;
-        products.addFx({
+        products.updateFx({
             name: eventTarget.name.value,
             cost: eventTarget.cost.value,
             locationId: eventTarget.location.value,
@@ -56,6 +56,8 @@ export const CreateProductPopup: React.FC = () => {
             ownerId: eventTarget.owner.value,
             price: eventTarget.price.value,
             rating: eventTarget.rating.value,
+            id: popupOpen.id!,
+            opened: true,
         });
     };
 
@@ -63,32 +65,49 @@ export const CreateProductPopup: React.FC = () => {
 
     return (
         <>
-            <button
-                onClick={() => {
-                    setPopupOpen(true);
-                }}
+            <Popup
+                position="center center"
+                open={popupOpen?.opened}
+                onClose={() => setPopupOpen({ opened: false })}
             >
-                Создать
-            </button>
-            <Popup position="center center" open={popupOpen} onClose={() => setPopupOpen(false)}>
                 <form onSubmit={handleSubmit}>
                     <div className={styles.popup}>
-                        <div className={styles.textCreate}>Создать продукт</div>
-                        <input name="name" placeholder="Название" type="text" />
-                        <input name="price" placeholder="Цена" type="text" />
-                        <input name="rating" placeholder="Рейтинг" type="text" />
+                        <div className={styles.textCreate}>Обновить продукт</div>
+                        <input
+                            name="name"
+                            placeholder="Название"
+                            type="text"
+                            defaultValue={popupOpen.name}
+                        />
+                        <input
+                            name="price"
+                            placeholder="Цена"
+                            type="text"
+                            defaultValue={popupOpen.price}
+                        />
+                        <input
+                            name="rating"
+                            placeholder="Рейтинг"
+                            type="text"
+                            defaultValue={popupOpen.rating}
+                        />
                         <div className={styles.withLabel}>
                             <label>Ед. изм</label>
-                            <select name="measureUnit">
+                            <select name="measureUnit" defaultValue={popupOpen.measureUnit}>
                                 <option>GRAMS</option>
                                 <option>SQUARE_METERS</option>
                                 <option>PCS</option>
                             </select>
                         </div>
-                        <input name="number" placeholder="Номер" type="text" />
+                        <input
+                            name="number"
+                            placeholder="Номер"
+                            type="text"
+                            defaultValue={popupOpen.number}
+                        />
                         <div className={styles.withLabel}>
                             <label>Владелец</label>
-                            <select name="owner">
+                            <select name="owner" defaultValue={popupOpen.ownerId}>
                                 {ownerList.map((x) => (
                                     <option key={`owner${x.id}`} value={x.id}>
                                         {x.name} ({x.id})
@@ -98,7 +117,7 @@ export const CreateProductPopup: React.FC = () => {
                         </div>
                         <div className={styles.withLabel}>
                             <label>Производитель</label>
-                            <select name="manufacturer">
+                            <select name="manufacturer" defaultValue={popupOpen.manufacturerId}>
                                 {manufacturerList.map((x) => (
                                     <option key={`manuf${x.id}`} value={x.id}>
                                         {x.name} ({x.fullName})
@@ -106,10 +125,15 @@ export const CreateProductPopup: React.FC = () => {
                                 ))}
                             </select>
                         </div>
-                        <input name="cost" placeholder="Цена производителя" type="text" />
+                        <input
+                            name="cost"
+                            placeholder="Цена производителя"
+                            type="text"
+                            defaultValue={popupOpen.cost}
+                        />
                         <div className={styles.withLabel}>
                             <label>Локация</label>
-                            <select name="location">
+                            <select name="location" defaultValue={popupOpen.locationId}>
                                 {locationList.map((x) => (
                                     <option key={`location${x.id}`} value={x.id}>
                                         ({x.x}, {x.y})
@@ -117,7 +141,7 @@ export const CreateProductPopup: React.FC = () => {
                                 ))}
                             </select>
                         </div>
-                        <button>Создать</button>
+                        <button>Обновить</button>
                         <div className={styles.error}>{error}</div>
                     </div>
                 </form>

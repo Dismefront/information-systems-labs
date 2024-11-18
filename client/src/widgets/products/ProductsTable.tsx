@@ -1,3 +1,5 @@
+import { products } from '@/pages/products/store';
+import { useUnit } from 'effector-react';
 import styles from './ProductsTable.module.css';
 
 interface ProductsTableProps {
@@ -5,6 +7,7 @@ interface ProductsTableProps {
 }
 
 export const ProductsTable: React.FC<ProductsTableProps> = ({ data }) => {
+    const setUpdatePopupPropsEv = useUnit(products.setUpdatePopupPropsEv);
     return (
         <table className={styles.table}>
             <thead>
@@ -37,7 +40,25 @@ export const ProductsTable: React.FC<ProductsTableProps> = ({ data }) => {
                             <td>{`(${x.coordinates.x}, ${x.coordinates.y})`}</td>
                             {x.editable && (
                                 <td>
-                                    <button>edit</button>
+                                    <button
+                                        onClick={() => {
+                                            setUpdatePopupPropsEv({
+                                                id: x.id,
+                                                cost: x.manufactureCost,
+                                                locationId: x.coordinates.id,
+                                                manufacturerId: x.manufacturer.id,
+                                                measureUnit: x.unitOfMeasure,
+                                                name: x.name,
+                                                number: x.partNumber,
+                                                opened: true,
+                                                ownerId: x.owner.id,
+                                                price: x.price,
+                                                rating: x.rating,
+                                            });
+                                        }}
+                                    >
+                                        edit
+                                    </button>
                                 </td>
                             )}
                         </tr>

@@ -54,4 +54,28 @@ public class ProductController {
         return ResponseEntity.ok().body(productService.getProductList(page, size, principal.getName(), isAdmin));
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity update(@PathVariable long id, @RequestBody ProductRequest productRequest, Principal principal) {
+        String username = principal.getName();
+        try {
+            if (productRequest.getName().isEmpty()) {
+                return ResponseEntity.badRequest().body("Name cannot be empty");
+            }
+            if (productRequest.getPrice() <= 0) {
+                return ResponseEntity.badRequest().body("Price must be greater than 0");
+            }
+            if (productRequest.getPartNumber().isEmpty() || productRequest.getPartNumber().length() >= 49) {
+                return ResponseEntity.badRequest().body("Part number must be less than 49 symbols long");
+            }
+            if (productRequest.getRating() <= 0) {
+                return ResponseEntity.badRequest().body("Rating must be greater than 0");
+            }
+            return ResponseEntity.ok().body(productService.updateProduct(productRequest, username, id));
+        }
+        catch(Exception ex) {
+            System.out.println(ex.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }
