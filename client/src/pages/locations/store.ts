@@ -30,6 +30,17 @@ const fetchFx = createEffect(async ({ page, size }: LocationPageProps) => {
     return data;
 });
 
+const deleteFx = createEffect(async (props: { id: string }) => {
+    const data = await fetch(`${API_ENDPOINT}/location/delete/${props.id}`, {
+        method: 'post',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((res) => res.json());
+    return data;
+});
+
 const addFx = createEffect(async (props: LocationProps) => {
     const data = await fetch(`${API_ENDPOINT}/location/create`, {
         method: 'post',
@@ -64,7 +75,9 @@ const setErrorEv = createEvent<string>();
 const $createPopupOpen = createStore<boolean>(false);
 const setCreatePopupPropsEv = createEvent<boolean>();
 
-$createPopupOpen.on(setCreatePopupPropsEv, (_, payload) => payload).on(addFx.doneData, () => false);
+$createPopupOpen
+    .on(setCreatePopupPropsEv, (_, payload) => payload)
+    .on([addFx.doneData, deleteFx.doneData], () => false);
 
 sample({
     clock: addFx.failData,
@@ -102,4 +115,5 @@ export const locations = {
     updateFx,
     setUpdatePopupPropsEv,
     $updatePopupOpen,
+    deleteFx,
 };

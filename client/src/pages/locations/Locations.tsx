@@ -13,10 +13,15 @@ export const LocationsPage: React.FC = () => {
     const params: { page: string } = useParams() as any;
 
     useEffect(() => {
-        locations.fetchFx({
-            page: Number(params.page) - 1,
-            size: 10,
-        });
+        const interval = setInterval(() => {
+            locations.fetchFx({
+                page: Number(params.page) - 1,
+                size: 10,
+            });
+        }, 1000);
+        return () => {
+            clearInterval(interval);
+        };
     }, [params.page]);
 
     return (

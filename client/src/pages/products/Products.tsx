@@ -6,19 +6,26 @@ import { UpdateProductPopup } from '@/widgets/products/UpdateProductPopup';
 import { useUnit } from 'effector-react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { products } from './store';
-import { API_ENDPOINT } from '@/App';
 import { SpecialCases } from './SpecialCases';
+import { products } from './store';
 
 export const ProductsPage: React.FC = () => {
     const data = useUnit(products.$data);
     const params: { page: string } = useParams() as any;
+    const sort = useUnit(products.$sortProps);
     useEffect(() => {
-        products.fetchFx({
-            page: Number(params.page) - 1,
-            size: 10,
-        });
-    }, [params.page]);
+        const interval = setInterval(() => {
+            products.fetchFx({
+                page: Number(params.page) - 1,
+                size: 10,
+                sortBy: sort.sortBy,
+                sortDir: sort.sortDir,
+            });
+        }, 1000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, [params.page, sort]);
     return (
         <>
             <NavBar />

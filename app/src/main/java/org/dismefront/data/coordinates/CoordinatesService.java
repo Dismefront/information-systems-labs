@@ -48,6 +48,13 @@ public class CoordinatesService {
         coordinates.setY(coordinatesRequest.getY());
     }
 
+    @Transactional
+    public void deleteCoordinates(Long id, String username) {
+        coordinatesRepository.deleteById(id);
+        Event event = new Event(EventName.COORDINATE_DELETED, username, id, new Timestamp(new Date().getTime()));
+        eventRepository.save(event);
+    }
+
     public Page<CoordinatesManaged> getCoordinatesList(int page, int size, String username, boolean isAdmin) {
         Pageable pageable = PageRequest.of(page, size);
         return coordinatesRepository.findCoordinatesWithEditableFlag(username, EventName.COORDINATE_CREATED, isAdmin, pageable);

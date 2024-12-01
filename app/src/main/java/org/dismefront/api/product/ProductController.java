@@ -48,10 +48,10 @@ public class ProductController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity list(@RequestParam int page, @RequestParam int size, Principal principal) {
+    public ResponseEntity list(@RequestParam int page, @RequestParam int size, @RequestParam String sortBy, @RequestParam String sortDir, Principal principal) {
         Optional<User> user = userRepository.findByUsername(principal.getName());
         boolean isAdmin = user.isPresent() && user.get().getRoles().contains(Role.ROLE_ADMIN);
-        return ResponseEntity.ok().body(productService.getProductList(page, size, principal.getName(), isAdmin));
+        return ResponseEntity.ok().body(productService.getProductList(page, size, principal.getName(), isAdmin, sortBy, sortDir));
     }
 
     @PutMapping("/update/{id}")
@@ -75,6 +75,19 @@ public class ProductController {
         catch(Exception ex) {
             System.out.println(ex.getMessage());
             return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping("/delete/{id}")
+    public ResponseEntity delete(@PathVariable long id, Principal principal) {
+        String username = principal.getName();
+        try {
+            productService.deleteProduct(id, username);
+            return ResponseEntity.ok().build();
+        }
+        catch(Exception ex) {
+            System.out.println(ex.getMessage());
+            return ResponseEntity.badRequest().body("You cannot delete this product");
         }
     }
 

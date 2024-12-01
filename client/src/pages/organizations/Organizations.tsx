@@ -13,10 +13,15 @@ export const OrganizationsPage: React.FC = () => {
     const params: { page: string } = useParams() as any;
 
     useEffect(() => {
-        organizations.fetchFx({
-            page: Number(params.page) - 1,
-            size: 10,
-        });
+        const interval = setInterval(() => {
+            organizations.fetchFx({
+                page: Number(params.page) - 1,
+                size: 10,
+            });
+        }, 1000);
+        return () => {
+            clearInterval(interval);
+        };
     }, [params.page]);
 
     return (

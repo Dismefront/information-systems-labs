@@ -52,6 +52,19 @@ public class CoordinatesController {
         }
     }
 
+    @PostMapping("/delete/{id}")
+    public ResponseEntity delete(@PathVariable long id, Principal principal) {
+        String username = principal.getName();
+        try {
+            coordinatesService.deleteCoordinates(id, username);
+            return ResponseEntity.ok().build();
+        }
+        catch(Exception ex) {
+            System.out.println(ex.getMessage());
+            return ResponseEntity.badRequest().body("You cannot delete these coordinates");
+        }
+    }
+
     @GetMapping("/list")
     public ResponseEntity list(@RequestParam int page, @RequestParam int size, Principal principal) {
         Optional<User> user = userRepository.findByUsername(principal.getName());

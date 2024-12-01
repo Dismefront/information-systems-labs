@@ -56,6 +56,17 @@ const updateFx = createEffect(async (props: UpdateAddressProps) => {
     return data;
 });
 
+const deleteFx = createEffect(async (props: { id: string }) => {
+    const data = await fetch(`${API_ENDPOINT}/address/delete/${props.id}`, {
+        method: 'post',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((res) => res.json());
+    return data;
+});
+
 const $error = createStore<string>('');
 const setErrorEv = createEvent<string>();
 
@@ -100,4 +111,5 @@ export const address = {
     updateFx,
     setUpdatePopupPropsEv,
     $updatePopupOpen,
+    deleteFx,
 };

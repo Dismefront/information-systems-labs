@@ -49,6 +49,13 @@ public class LocationService {
         location.setZ(locationRequest.getZ());
     }
 
+    @Transactional
+    public void deleteLocation(Long id, String username) {
+        locationRepository.deleteById(id);
+        Event event = new Event(EventName.LOCATION_DELETED, username, id, new Timestamp(new Date().getTime()));
+        eventRepository.save(event);
+    }
+
     public Page<LocationManaged> getLocationList(int page, int size, String username, boolean isAdmin) {
         Pageable pageable = PageRequest.of(page, size);
         return locationRepository.findLocationsWithEditableFlag(username, EventName.LOCATION_CREATED, isAdmin, pageable);

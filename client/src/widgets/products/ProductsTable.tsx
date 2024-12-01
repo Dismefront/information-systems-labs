@@ -8,19 +8,78 @@ interface ProductsTableProps {
 
 export const ProductsTable: React.FC<ProductsTableProps> = ({ data }) => {
     const setUpdatePopupPropsEv = useUnit(products.setUpdatePopupPropsEv);
+    const sortProps = useUnit(products.$sortProps);
+
     return (
         <table className={styles.table}>
             <thead>
                 <tr>
-                    <th>Дата создания</th>
-                    <th>Название</th>
-                    <th>Цена</th>
-                    <th>Рейтинг</th>
+                    <th
+                        style={{ cursor: 'pointer' }}
+                        role="button"
+                        onClick={() => {
+                            products.updSortProps('creationDate');
+                        }}
+                    >
+                        Дата создания{' '}
+                        {sortProps.sortBy === 'creationDate' &&
+                            (sortProps.sortDir === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th
+                        style={{ cursor: 'pointer' }}
+                        role="button"
+                        onClick={() => {
+                            products.updSortProps('name');
+                        }}
+                    >
+                        Название{' '}
+                        {sortProps.sortBy === 'name' && (sortProps.sortDir === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th
+                        style={{ cursor: 'pointer' }}
+                        role="button"
+                        onClick={() => {
+                            products.updSortProps('price');
+                        }}
+                    >
+                        Цена{' '}
+                        {sortProps.sortBy === 'price' && (sortProps.sortDir === 'asc' ? '↑' : '↓')}
+                    </th>
+                    <th
+                        style={{ cursor: 'pointer' }}
+                        role="button"
+                        onClick={() => {
+                            products.updSortProps('rating');
+                        }}
+                    >
+                        Рейтинг{' '}
+                        {sortProps.sortBy === 'rating' && (sortProps.sortDir === 'asc' ? '↑' : '↓')}
+                    </th>
                     <th>ед. изм.</th>
-                    <th>Номер</th>
+                    <th
+                        style={{ cursor: 'pointer' }}
+                        role="button"
+                        onClick={() => {
+                            products.updSortProps('partNumber');
+                        }}
+                    >
+                        Номер{' '}
+                        {sortProps.sortBy === 'partNumber' &&
+                            (sortProps.sortDir === 'asc' ? '↑' : '↓')}
+                    </th>
                     <th>Владелец</th>
                     <th>Производитель</th>
-                    <th>Цена производства</th>
+                    <th
+                        style={{ cursor: 'pointer' }}
+                        role="button"
+                        onClick={() => {
+                            products.updSortProps('manufactureCost');
+                        }}
+                    >
+                        Цена производства{' '}
+                        {sortProps.sortBy === 'manufactureCost' &&
+                            (sortProps.sortDir === 'asc' ? '↑' : '↓')}
+                    </th>
                     <th>Локация</th>
                 </tr>
             </thead>

@@ -50,6 +50,13 @@ public class AddressService {
         address.setTown(locationRepository.getReferenceById(addressRequest.getTownId()));
     }
 
+    @Transactional
+    public void deleteAddress(Long id, String username) {
+        addressRepository.deleteById(id);
+        Event event = new Event(EventName.ADDRESS_DELETED, username, id, new Timestamp(new Date().getTime()));
+        eventRepository.save(event);
+    }
+
     public Page<AddressManaged> getAddressList(int page, int size, String username, boolean isAdmin) {
         Pageable pageable = PageRequest.of(page, size);
         return addressRepository.findAddressesWithEditableFlag(username, EventName.ADDRESS_CREATED, isAdmin, pageable);

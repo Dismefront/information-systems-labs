@@ -100,6 +100,17 @@ export const UpdatePersonPopup: React.FC = () => {
                             </select>
                         </div>
                         <button>Обновить</button>
+                        <button
+                            onClick={() => {
+                                persons.deleteFx({
+                                    id: popupOpen.id!,
+                                });
+                                setPopupOpen({ opened: false });
+                            }}
+                            type="button"
+                        >
+                            Удалить
+                        </button>
                         <div className={styles.error}>{error}</div>
                     </div>
                 </form>

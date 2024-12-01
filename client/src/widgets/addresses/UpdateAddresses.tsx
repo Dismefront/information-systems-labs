@@ -65,6 +65,17 @@ export const UpdateAddressPopup: React.FC = () => {
                             type="text"
                         />
                         <button>Update</button>
+                        <button
+                            onClick={() => {
+                                address.deleteFx({
+                                    id: popupOpen.id!,
+                                });
+                                setPopupOpen({ opened: false });
+                            }}
+                            type="button"
+                        >
+                            Удалить
+                        </button>
                         <div className={styles.error}>{error}</div>
                     </div>
                 </form>

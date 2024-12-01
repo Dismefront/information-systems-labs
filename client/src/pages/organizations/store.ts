@@ -57,13 +57,26 @@ const updateFx = createEffect(async (props: UpdateOrganizationProps) => {
     return data;
 });
 
+const deleteFx = createEffect(async (props: { id: string }) => {
+    const data = await fetch(`${API_ENDPOINT}/organization/delete/${props.id}`, {
+        method: 'post',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((res) => res.json());
+    return data;
+});
+
 const $error = createStore<string>('');
 const setErrorEv = createEvent();
 
 const $createPopupOpen = createStore<boolean>(false);
 const setCreatePopupPropsEv = createEvent<boolean>();
 
-$createPopupOpen.on(setCreatePopupPropsEv, (_, payload) => payload).on(addFx.doneData, () => false);
+$createPopupOpen
+    .on(setCreatePopupPropsEv, (_, payload) => payload)
+    .on([addFx.doneData, deleteFx.doneData], () => false);
 
 sample({
     clock: addFx.failData,
@@ -105,4 +118,5 @@ export const organizations = {
     updateFx,
     setUpdatePopupPropsEv,
     $updatePopupOpen,
+    deleteFx,
 };

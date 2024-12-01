@@ -47,6 +47,17 @@ export const UpdateCoordinatesPopup: React.FC = () => {
                             step="any"
                         />
                         <button>Update</button>
+                        <button
+                            onClick={() => {
+                                coordinates.deleteFx({
+                                    id: popupOpen.id!,
+                                });
+                                setPopupOpen({ opened: false });
+                            }}
+                            type="button"
+                        >
+                            Удалить
+                        </button>
                         <div className={styles.error}>{error}</div>
                     </div>
                 </form>

@@ -12,10 +12,15 @@ export const PersonsPage: React.FC = () => {
     const data = useUnit(persons.$data);
     const params: { page: string } = useParams() as any;
     useEffect(() => {
-        persons.fetchFx({
-            page: Number(params.page) - 1,
-            size: 10,
-        });
+        const interval = setInterval(() => {
+            persons.fetchFx({
+                page: Number(params.page) - 1,
+                size: 10,
+            });
+        }, 1000);
+        return () => {
+            clearInterval(interval);
+        };
     }, [params.page]);
     return (
         <>

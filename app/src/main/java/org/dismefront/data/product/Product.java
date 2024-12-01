@@ -1,7 +1,9 @@
 package org.dismefront.data.product;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.dismefront.data.coordinates.Coordinates;
 import org.dismefront.data.organization.Organization;
 import org.dismefront.data.person.Person;
@@ -12,6 +14,8 @@ import java.time.ZonedDateTime;
 @Entity
 @Table(name = "IS1_PRODUCT")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +29,7 @@ public class Product {
   private Coordinates coordinates; // Поле не может быть null
 
   @Column(nullable = false)
-  private java.time.ZonedDateTime creationDate; // Поле не может быть null, Значение этого поля должно генерироваться автоматически
+  private ZonedDateTime creationDate; // Поле не может быть null, Значение этого поля должно генерироваться автоматически
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)

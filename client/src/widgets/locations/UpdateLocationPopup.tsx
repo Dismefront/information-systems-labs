@@ -54,6 +54,17 @@ export const UpdateLocationPopup: React.FC = () => {
                         step="any"
                     />
                     <button>Update</button>
+                    <button
+                        onClick={() => {
+                            locations.deleteFx({
+                                id: popupOpen.id!,
+                            });
+                            setPopupOpen({ opened: false });
+                        }}
+                        type="button"
+                    >
+                        Удалить
+                    </button>
                     <div className={styles.error}>{error}</div>
                 </div>
             </form>

@@ -96,6 +96,17 @@ export const UpdateOrganizationPopup: React.FC = () => {
                         </select>
                     </div>
                     <button>Update</button>
+                    <button
+                        onClick={() => {
+                            organizations.deleteFx({
+                                id: popupOpen.id!,
+                            });
+                            setPopupOpen({ opened: false });
+                        }}
+                        type="button"
+                    >
+                        Удалить
+                    </button>
                     <div className={styles.error}>{error}</div>
                 </div>
             </form>

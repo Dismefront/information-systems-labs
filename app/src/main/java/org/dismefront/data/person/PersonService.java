@@ -54,6 +54,13 @@ public class PersonService {
         person.setNationality(personRequest.getNationality());
     }
 
+    @Transactional
+    public void deletePerson(Long id, String username) {
+        personRepository.deleteById(id);
+        Event event = new Event(EventName.PERSON_DELETED, username, id, new Timestamp(new Date().getTime()));
+        eventRepository.save(event);
+    }
+
     public Page<PersonManaged> getPersonList(int page, int size, String username, boolean isAdmin) {
         Pageable pageable = PageRequest.of(page, size);
         return personRepository.findPersonsWithEditableFlag(username, EventName.PERSON_CREATED, isAdmin, pageable);

@@ -52,6 +52,17 @@ const addFx = createEffect(async (props: NewPersonProps) => {
     return data;
 });
 
+const deleteFx = createEffect(async (props: { id: string }) => {
+    const data = await fetch(`${API_ENDPOINT}/person/delete/${props.id}`, {
+        method: 'post',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((res) => res.json());
+    return data;
+});
+
 const updateFx = createEffect(async (props: UpdatePersonProps) => {
     const data = await fetch(`${API_ENDPOINT}/person/update/${props.id}`, {
         method: 'put',
@@ -77,7 +88,9 @@ const setErrorEv = createEvent();
 const $createPopupOpen = createStore<boolean>(false);
 const setCreatePopupPropsEv = createEvent<boolean>();
 
-$createPopupOpen.on(setCreatePopupPropsEv, (_, payload) => payload).on(addFx.doneData, () => false);
+$createPopupOpen
+    .on(setCreatePopupPropsEv, (_, payload) => payload)
+    .on([addFx.doneData, deleteFx.doneData], () => false);
 
 sample({
     clock: addFx.failData,
@@ -121,4 +134,5 @@ export const persons = {
     updateFx,
     setUpdatePopupPropsEv,
     $updatePopupOpen,
+    deleteFx,
 };

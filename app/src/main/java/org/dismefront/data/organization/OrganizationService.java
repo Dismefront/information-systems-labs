@@ -59,6 +59,13 @@ public class OrganizationService {
         organization.setPostalAddress(addressRepository.getReferenceById(organizationRequest.getPostalAddressId()));
     }
 
+    @Transactional
+    public void deleteOrganization(Long id, String username) {
+        organizationRepository.deleteById(id);
+        Event event = new Event(EventName.ORGANIZATION_DELETED, username, id, new Timestamp(new Date().getTime()));
+        eventRepository.save(event);
+    }
+
     public Page<OrganizationManaged> getOrganizationList(int page, int size, String username, boolean isAdmin) {
         Pageable pageable = PageRequest.of(page, size);
         return organizationRepository.findOrganizationsWithEditableFlag(username, EventName.ORGANIZATION_CREATED, isAdmin, pageable);

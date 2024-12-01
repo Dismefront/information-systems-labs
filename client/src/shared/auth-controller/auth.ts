@@ -61,6 +61,10 @@ export const loginFx = createEffect(async (props: AuthProps) => {
     if (res.status === 401) {
         throw new Error('Login or password do not match');
     }
+    const authCookie = Cookies.get('JSESSIONID');
+    if (!authCookie && res.status < 300) {
+        Cookies.set('JSESSIONID', 'authorized');
+    }
     return res;
 });
 
@@ -75,6 +79,10 @@ export const registerFx = createEffect(async (props: AuthProps) => {
     });
     if (res.status === 409) {
         throw new Error('A user with this username or password already exists');
+    }
+    const authCookie = Cookies.get('JSESSIONID');
+    if (!authCookie && res.status < 300) {
+        Cookies.set('JSESSIONID', 'authorized');
     }
     return res;
 });

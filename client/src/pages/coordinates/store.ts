@@ -29,6 +29,17 @@ const fetchFx = createEffect(async ({ page, size }: CoordinatesPageProps) => {
     return data;
 });
 
+const deleteFx = createEffect(async (props: { id: string }) => {
+    const data = await fetch(`${API_ENDPOINT}/coordinates/delete/${props.id}`, {
+        method: 'post',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((res) => res.json());
+    return data;
+});
+
 const addFx = createEffect(async (props: CoordinatesProps) => {
     const data = await fetch(`${API_ENDPOINT}/coordinates/create`, {
         method: 'post',
@@ -62,7 +73,9 @@ const setErrorEv = createEvent<string>();
 const $createPopupOpen = createStore<boolean>(false);
 const setCreatePopupPropsEv = createEvent<boolean>();
 
-$createPopupOpen.on(setCreatePopupPropsEv, (_, payload) => payload).on(addFx.doneData, () => false);
+$createPopupOpen
+    .on(setCreatePopupPropsEv, (_, payload) => payload)
+    .on([addFx.doneData, deleteFx.done], () => false);
 
 sample({
     clock: addFx.failData,
@@ -100,4 +113,5 @@ export const coordinates = {
     updateFx,
     setUpdatePopupPropsEv,
     $updatePopupOpen,
+    deleteFx,
 };
