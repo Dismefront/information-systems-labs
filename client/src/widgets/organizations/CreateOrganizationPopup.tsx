@@ -50,6 +50,8 @@ export const CreateOrganizationPopup: React.FC = () => {
                         <input name="fullName" placeholder="Full Name" type="text" />
                         <input name="annualTurnover" placeholder="Annual Turnover" type="number" />
                         <input name="employeesCount" placeholder="Employees Count" type="number" />
+                        <div className={styles.withLabel}>
+                            <label>Адрес</label>
                         <select name="officialAddressId">
                             {addressList.map((x) => (
                                 <option key={x.id} value={x.id}>
@@ -57,6 +59,9 @@ export const CreateOrganizationPopup: React.FC = () => {
                                 </option>
                             ))}
                         </select>
+                        </div>
+                        <div className={styles.withLabel}>
+                            <label>Почтовый индекс</label>
                         <select name="postalAddressId">
                             {addressList.map((x) => (
                                 <option key={x.id} value={x.id}>
@@ -64,8 +69,9 @@ export const CreateOrganizationPopup: React.FC = () => {
                                 </option>
                             ))}
                         </select>
+                        </div>
                         <button>Create</button>
-                        <div>{error}</div>
+                        <div className={styles.error}>{error}</div>
                     </div>
                 </form>
             </Popup>
