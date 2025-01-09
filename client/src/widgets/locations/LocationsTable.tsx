@@ -26,19 +26,21 @@ export const LocationsTable: React.FC<LocationsTableProps> = ({ data }) => {
                         <td>{x.y}</td>
                         <td>{x.z}</td>
                         <td>
-                            <button
-                                onClick={() => {
-                                    setUpdatePopupPropsEv({
-                                        opened: true,
-                                        id: x.id,
-                                        x: x.x,
-                                        y: x.y,
-                                        z: x.z,
-                                    });
-                                }}
-                            >
-                                Edit
-                            </button>
+                            {x.editable && (
+                                <button
+                                    onClick={() => {
+                                        setUpdatePopupPropsEv({
+                                            opened: true,
+                                            id: x.id,
+                                            x: x.x,
+                                            y: x.y,
+                                            z: x.z,
+                                        });
+                                    }}
+                                >
+                                    Edit
+                                </button>
+                            )}
                         </td>
                     </tr>
                 ))}

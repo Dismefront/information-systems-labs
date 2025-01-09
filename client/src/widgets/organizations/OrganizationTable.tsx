@@ -31,9 +31,13 @@ export const OrganizationsTable: React.FC<OrganizationsTableProps> = ({ data }) 
                         <td>{x.officialAddress.zipCode}</td>
                         <td>{x.postalAddress.zipCode}</td>
                         <td>
-                            <button onClick={() => setUpdatePopupPropsEv({ ...x, opened: true })}>
-                                Edit
-                            </button>
+                            {x.editable && (
+                                <button
+                                    onClick={() => setUpdatePopupPropsEv({ ...x, opened: true })}
+                                >
+                                    Edit
+                                </button>
+                            )}
                         </td>
                     </tr>
                 ))}

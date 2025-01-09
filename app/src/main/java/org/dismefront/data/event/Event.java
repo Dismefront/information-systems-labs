@@ -21,8 +21,8 @@ public class Event {
     @Column
     private String actor;
 
-    @Column
-    private Long entity_id;
+    @Column(name="entity_id")
+    private Long entityId;
 
     @Column
     private Timestamp timestamp;
@@ -30,7 +30,7 @@ public class Event {
     public Event(EventName name, String actor, Long entity_id, Timestamp timestamp) {
         this.name = name;
         this.actor = actor;
-        this.entity_id = entity_id;
+        this.entityId = entity_id;
         this.timestamp = timestamp;
     }
 

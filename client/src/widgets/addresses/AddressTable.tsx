@@ -26,18 +26,20 @@ export const AddressTable: React.FC<AddressTableProps> = ({ data }) => {
                         </td>
                         <td>{x.zipCode}</td>
                         <td>
-                            <button
-                                onClick={() => {
-                                    setUpdatePopupPropsEv({
-                                        opened: true,
-                                        id: x.id,
-                                        townId: x.town.id,
-                                        zipCode: x.zipCode,
-                                    });
-                                }}
-                            >
-                                Edit
-                            </button>
+                            {x.editable && (
+                                <button
+                                    onClick={() => {
+                                        setUpdatePopupPropsEv({
+                                            opened: true,
+                                            id: x.id,
+                                            townId: x.town.id,
+                                            zipCode: x.zipCode,
+                                        });
+                                    }}
+                                >
+                                    Edit
+                                </button>
+                            )}
                         </td>
                     </tr>
                 ))}
