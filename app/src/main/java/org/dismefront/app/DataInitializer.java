@@ -28,7 +28,7 @@ public class DataInitializer implements CommandLineRunner {
   private final Environment env;
 
   @Override
-  @Transactional
+  @org.springframework.transaction.annotation.Transactional
   public void run(String... args) throws Exception {
     if (userRepository.findByUsername("admin").isEmpty()) {
       User admin = new User();

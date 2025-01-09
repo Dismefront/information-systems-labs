@@ -21,7 +21,7 @@ public class CoordinatesService {
     private final CoordinatesRepository coordinatesRepository;
     private final EventRepository eventRepository;
 
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public Coordinates updateCoordinates(CoordinatesRequest coordinatesRequest, String username, Long coordinatesId) {
         Coordinates coordinates = coordinatesRepository.getReferenceById(coordinatesId);
         coordinatesParams(coordinatesRequest, coordinates);
@@ -31,7 +31,7 @@ public class CoordinatesService {
         return coordinatesRepository.save(coordinates);
     }
 
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public Coordinates saveCoordinates(CoordinatesRequest coordinatesRequest, String username) {
         Coordinates coordinates = new Coordinates();
         coordinatesParams(coordinatesRequest, coordinates);
@@ -48,7 +48,7 @@ public class CoordinatesService {
         coordinates.setY(coordinatesRequest.getY());
     }
 
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public void deleteCoordinates(Long id, String username) {
         coordinatesRepository.deleteById(id);
         Event event = new Event(EventName.COORDINATE_DELETED, username, id, new Timestamp(new Date().getTime()));

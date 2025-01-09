@@ -4,6 +4,7 @@ import { useUnit } from 'effector-react';
 import { useEffect, useState } from 'react';
 import Popup from 'reactjs-popup';
 import styles from './ProductsTable.module.css';
+import { UploadProductsFileButton } from './UploadFileButton';
 
 export const CreateProductPopup: React.FC = () => {
     const [popupOpen, setPopupOpen] = useUnit([
@@ -70,6 +71,8 @@ export const CreateProductPopup: React.FC = () => {
             >
                 Создать
             </button>
+            <br />
+            <UploadProductsFileButton />
             <Popup position="center center" open={popupOpen} onClose={() => setPopupOpen(false)}>
                 <form onSubmit={handleSubmit}>
                     <div className={styles.popup}>

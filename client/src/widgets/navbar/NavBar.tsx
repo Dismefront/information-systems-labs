@@ -39,6 +39,9 @@ export const NavBar: React.FC = () => {
                 </NavLink>
             </nav>
             <nav className={styles.additional}>
+                <NavLink to="/importHistory" className={activeHandler}>
+                    Import History
+                </NavLink>
                 {currentUser?.roles.includes('ROLE_ADMIN') && (
                     <NavLink to="/admin-requests" className={activeHandler}>
                         Admin Requests

@@ -21,7 +21,7 @@ public class LocationService {
     private final LocationRepository locationRepository;
     private final EventRepository eventRepository;
 
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public Location updateLocation(LocationRequest locationRequest, String username, Long locationId) {
         Location location = locationRepository.getReferenceById(locationId);
         locationParams(locationRequest, location);
@@ -31,7 +31,7 @@ public class LocationService {
         return locationRepository.save(location);
     }
 
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public Location saveLocation(LocationRequest locationRequest, String username) {
         Location location = new Location();
         locationParams(locationRequest, location);
@@ -49,7 +49,7 @@ public class LocationService {
         location.setZ(locationRequest.getZ());
     }
 
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public void deleteLocation(Long id, String username) {
         locationRepository.deleteById(id);
         Event event = new Event(EventName.LOCATION_DELETED, username, id, new Timestamp(new Date().getTime()));

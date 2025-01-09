@@ -14,6 +14,7 @@ import { AuthKeeper } from './shared/auth-controller/AuthKeeper';
 import { BecomeAdmin } from './shared/become-admin/BecomeAdmin';
 import { fetchWrapper } from './shared/fetch-wrapper/fetch-wrapper';
 import { LogoutHandler } from './shared/logout/LogoutHandler';
+import { ImportHistory } from './pages/importHistory/ImportHistory';
 
 window.fetch = fetchWrapper;
 
@@ -95,6 +96,14 @@ const router = createBrowserRouter([
         element: (
             <AuthKeeper>
                 <BecomeAdmin />
+            </AuthKeeper>
+        ),
+    },
+    {
+        path: '/importHistory',
+        element: (
+            <AuthKeeper>
+                <ImportHistory />
             </AuthKeeper>
         ),
     },

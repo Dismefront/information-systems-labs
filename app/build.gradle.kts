@@ -38,6 +38,7 @@ dependencies {
     implementation("org.postgresql:postgresql")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.projectlombok:lombok")
+    implementation("org.yaml:snakeyaml:2.3")
     annotationProcessor("org.projectlombok:lombok")
 }
 

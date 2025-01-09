@@ -23,7 +23,7 @@ public class AddressService {
     private final LocationRepository locationRepository;
     private final EventRepository eventRepository;
 
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public Address updateAddress(AddressRequest addressRequest, String username, Long addressId) {
         Address address = addressRepository.getReferenceById(addressId);
         addressParams(addressRequest, address);
@@ -33,7 +33,7 @@ public class AddressService {
         return addressRepository.save(address);
     }
 
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public Address saveAddress(AddressRequest addressRequest, String username) {
         Address address = new Address();
         addressParams(addressRequest, address);
@@ -50,7 +50,7 @@ public class AddressService {
         address.setTown(locationRepository.getReferenceById(addressRequest.getTownId()));
     }
 
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public void deleteAddress(Long id, String username) {
         addressRepository.deleteById(id);
         Event event = new Event(EventName.ADDRESS_DELETED, username, id, new Timestamp(new Date().getTime()));
