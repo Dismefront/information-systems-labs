@@ -31,4 +31,7 @@ public class ImportHistory {
 
     @Column
     private Timestamp timestamp;
+
+    @Column
+    private String storageKey;
 }

@@ -3,6 +3,7 @@ import { importHistory } from './store';
 import { useUnit } from 'effector-react';
 import { useEffect, useState } from 'react';
 import { $currentUser } from '@/shared/auth-controller/auth';
+import { API_ENDPOINT } from '@/App';
 
 export const ImportHistory: React.FC = () => {
     const data = useUnit(importHistory.$data);
@@ -27,7 +28,15 @@ export const ImportHistory: React.FC = () => {
                                 <>
                                     id: {x.id},&emsp; obj_cnt: {x.objectCount},&emsp; status:{' '}
                                     {x.status}
-                                    ,&emsp; by: {x.user.username},&emsp; at: {x.timestamp}
+                                    ,&emsp; by: {x.user.username},&emsp; at: {x.timestamp}&emsp;
+                                    {x.storageKey && (
+                                        <a
+                                            href={`${API_ENDPOINT}/product/download/${x.storageKey}`}
+                                            download
+                                        >
+                                            download
+                                        </a>
+                                    )}
                                     <br />
                                 </>
                             );
@@ -36,7 +45,15 @@ export const ImportHistory: React.FC = () => {
                             return (
                                 <>
                                     id: {x.id},&emsp; obj_cnt: {x.objectCount},&emsp; status:{' '}
-                                    {x.status},&emsp; at: {x.timestamp}
+                                    {x.status},&emsp; at: {x.timestamp}&emsp;
+                                    {x.storageKey && (
+                                        <a
+                                            href={`${API_ENDPOINT}/product/download/${x.storageKey}`}
+                                            download
+                                        >
+                                            download
+                                        </a>
+                                    )}
                                     <br />
                                 </>
                             );

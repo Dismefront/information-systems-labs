@@ -39,6 +39,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.projectlombok:lombok")
     implementation("org.yaml:snakeyaml:2.3")
+    implementation("io.minio:minio:8.5.2")
     annotationProcessor("org.projectlombok:lombok")
 }
 

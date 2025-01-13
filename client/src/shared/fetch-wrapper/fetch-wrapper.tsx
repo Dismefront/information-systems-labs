@@ -9,7 +9,7 @@ export const fetchWrapper = async (
 ): Promise<Response> => {
     try {
         const response = await origFetch(input, init);
-        if (response.status >= 400) {
+        if (response.status >= 400 || response.status === 206) {
             const text = await response.text();
             if (text) {
                 toast.error(text.toString());

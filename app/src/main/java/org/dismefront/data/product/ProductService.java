@@ -117,15 +117,13 @@ public class ProductService {
         eventRepository.save(productEvent);
     }
 
-    @org.springframework.transaction.annotation.Transactional(propagation = Propagation.REQUIRES_NEW)
     public ImportHistory saveToImportHistory(String username, Long objectsCount) {
         ImportHistory importHistory = new ImportHistory();
         Optional<User> user = userRepository.findByUsername(username);
         user.ifPresent(importHistory::setUser);
-        importHistory.setStatus(ImportStatus.REJECTED);
+        importHistory.setStatus(ImportStatus.RESOLVED);
         importHistory.setTimestamp(new Timestamp(new Date().getTime()));
         importHistory.setObjectCount(objectsCount);
-        importHistoryRepository.save(importHistory);
         return importHistory;
     }
 
@@ -136,7 +134,7 @@ public class ProductService {
             objectMapper.setProductParamsFromMap(savedProduct, product);
             logSaveEventsOfNestedObjects(savedProduct, username);
         });
-
+        System.out.println("Import to history resolved successfully");
         importHistory.setStatus(ImportStatus.RESOLVED);
     }
 
