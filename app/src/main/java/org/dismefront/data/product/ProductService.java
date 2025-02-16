@@ -121,13 +121,12 @@ public class ProductService {
         ImportHistory importHistory = new ImportHistory();
         Optional<User> user = userRepository.findByUsername(username);
         user.ifPresent(importHistory::setUser);
-        importHistory.setStatus(ImportStatus.RESOLVED);
+        importHistory.setStatus(ImportStatus.REJECTED);
         importHistory.setTimestamp(new Timestamp(new Date().getTime()));
         importHistory.setObjectCount(objectsCount);
-        return importHistory;
+        return importHistoryRepository.save(importHistory);
     }
 
-    @org.springframework.transaction.annotation.Transactional
     public void uploadProductsFromFile(ArrayList<Map<String, Object>> products, String username, ImportHistory importHistory) {
         products.forEach(product -> {
             Product savedProduct = new Product();

@@ -35,54 +35,53 @@ public class FileController {
         String username = principal.getName();
         String bucketName = "import-files";
         String fileName = "upload-" + System.currentTimeMillis() + ".yaml";
-        boolean isMinioSaved = false;
-        boolean isDatabaseSaved = false;
         ImportHistory importHistory = null;
+
         try {
-            try {
-                Yaml yaml = new Yaml();
-                Map<String, Object> yamlData = yaml.load(yamlContent);
-                ArrayList<Map<String, Object>> products = (ArrayList<Map<String, Object>>) yamlData.get("products");
-                importHistory = productService.saveToImportHistory(username, (long) products.size());
-                productService.uploadProductsFromFile(products, username, importHistory);
-                isDatabaseSaved = true;
-            }
-            catch (Exception e) {
-                if (importHistory != null) {
-                    importHistory.setStatus(ImportStatus.REJECTED);
-                }
-                System.err.println("Failed to save data to the database: " + e.getMessage());
-            }
+            importHistory = productService.saveToImportHistory(username, -1L);
+            InputStream fileStream = new ByteArrayInputStream(yamlContent.getBytes());
+            minioService.uploadFile(bucketName, fileName, fileStream, yamlContent.getBytes().length, "application/x-yaml");
+            importHistory.setStorageKey(fileName);
 
-            try {
-                InputStream fileStream = new ByteArrayInputStream(yamlContent.getBytes());
-                minioService.uploadFile(bucketName, fileName, fileStream, yamlContent.getBytes().length, "application/x-yaml");
-                isMinioSaved = true;
-                if (importHistory != null) {
-                    importHistory.setStorageKey(fileName);
-                }
-            } catch (Exception e) {
-                System.err.println("Failed to save file to MinIO: " + e.getMessage());
-            }
+            Yaml yaml = new Yaml();
+            Map<String, Object> yamlData = yaml.load(yamlContent);
+
+            ArrayList<Map<String, Object>> products = (ArrayList<Map<String, Object>>) yamlData.get("products");
+
+            importHistory.setObjectCount((long) products.size());
+            productService.uploadProductsFromFile(products, username, importHistory);
+
+            importHistory.setStatus(ImportStatus.RESOLVED);
+            importHistoryRepository.save(importHistory);
+
+            return ResponseEntity.ok("File and data saved successfully.");
+        } catch (Exception e) {
+
             if (importHistory != null) {
-                importHistoryRepository.save(importHistory);
+                if (minioService.isMinioAvailable()) {
+                    importHistory.setStatus(ImportStatus.REJECTED);
+                    importHistoryRepository.save(importHistory);
+                    return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).body(e.getMessage());
+                } else {
+                    try {
+                        importHistoryRepository.delete(importHistory);
+                    } catch (Exception ex) {
+                        System.err.println("Failed to delete import history record: " + ex.getMessage());
+                    }
+                }
             }
 
-            if (isMinioSaved && isDatabaseSaved) {
-                return ResponseEntity.ok("File and data saved successfully.");
-            } else if (isMinioSaved) {
-                return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
-                        .body("File saved to MinIO, but database operation failed.");
-            } else if (isDatabaseSaved) {
-                return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
-                        .body("Data saved to database, but file upload to MinIO failed.");
-            } else {
-                throw new RuntimeException("Both file storage and database operations failed.");
+            if (importHistory == null) {
+                try {
+                    minioService.deleteFile(bucketName, fileName);
+                } catch (Exception ex) {
+                    System.err.println("Failed to delete file from MinIO during rollback: " + ex.getMessage());
+                }
             }
-        }
-        catch (Exception e) {
+
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save data and file.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to save data and file: " + e.getMessage());
         }
     }
 

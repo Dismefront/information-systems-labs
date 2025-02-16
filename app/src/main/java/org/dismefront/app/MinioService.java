@@ -4,19 +4,21 @@ import io.minio.GetObjectArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
+import java.util.Objects;
 
 @Service
 public class MinioService {
 
     private final MinioClient minioClient;
 
-    public MinioService() {
+    public MinioService(Environment env) {
         this.minioClient = MinioClient.builder()
-                .endpoint("http://localhost:9000")
-                .credentials("minioadmin", "minioadmin")
+                .endpoint(Objects.requireNonNull(env.getProperty("MINIO_URL")))
+                .credentials(Objects.requireNonNull(env.getProperty("MINIO_USERNAME")), Objects.requireNonNull(env.getProperty("MINIO_PASSWORD")))
                 .build();
     }
 
@@ -61,7 +63,7 @@ public class MinioService {
 
     public boolean isMinioAvailable() {
         try {
-            minioClient.listBuckets(); // A lightweight call to verify availability
+            minioClient.listBuckets();
             return true;
         } catch (Exception e) {
             System.err.println("MinIO is unavailable: " + e.getMessage());

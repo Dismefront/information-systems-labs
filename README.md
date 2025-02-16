@@ -6,6 +6,9 @@ DB_URL=
 DB_USER=
 DB_PASSWORD=
 ROOT_ADMIN_PASSWORD=
+MINIO_URL=
+MINIO_USERNAME=
+MINIO_PASSWORD=
 server.servlet.session.cookie.http-only=false
 ```
 

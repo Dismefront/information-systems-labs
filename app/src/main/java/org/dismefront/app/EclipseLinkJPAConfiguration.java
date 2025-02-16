@@ -59,7 +59,6 @@ public class EclipseLinkJPAConfiguration extends JpaBaseConfiguration {
         .build();
   }
 
-  @Autowired private Environment env;
 
   @Bean
   public static DataSource dataSource(Environment env) {
