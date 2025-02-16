@@ -62,7 +62,6 @@ public class LocationController {
             return ResponseEntity.ok().build();
         }
         catch(Exception ex) {
-            System.out.println(ex.getMessage());
             return ResponseEntity.badRequest().body("You cannot delete this location");
         }
     }

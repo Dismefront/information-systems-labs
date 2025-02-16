@@ -15,8 +15,9 @@ import org.springframework.stereotype.Repository;
 public interface PersonRepository extends JpaRepository<Person, Long> {
   Optional<Person> findByName(String name);
 
-  @Query("SELECT new org.dismefront.data.person.PersonManaged(p.id, p.name, p.eyeColor, p.hairColor, p.location, p.height, p.nationality, " +
+  @Query(value = "SELECT new org.dismefront.data.person.PersonManaged(p.id, p.name, p.eyeColor, p.hairColor, p.location, p.height, p.nationality, " +
           "CASE WHEN e.actor = :username OR :isAdmin = true THEN true ELSE false END) " +
-          "FROM Person p LEFT JOIN Event e ON e.entityId = p.id AND e.name = :eventName")
+          "FROM Person p LEFT JOIN Event e ON e.entityId = p.id AND e.name = :eventName",
+  countQuery = "SELECT COUNT(p) FROM Person p LEFT JOIN Event e ON e.entityId = p.id AND e.name = :eventName")
   Page<PersonManaged> findPersonsWithEditableFlag(@Param("username") String username, @Param("eventName") EventName eventName, @Param("isAdmin") boolean isAdmin, Pageable pageable);
 }

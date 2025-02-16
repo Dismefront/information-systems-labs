@@ -42,7 +42,6 @@ public class ProductController {
             return ResponseEntity.ok().body(productService.saveProduct(productRequest, username));
         }
         catch(Exception ex) {
-            System.out.println(ex.getMessage());
             return ResponseEntity.badRequest().build();
         }
     }
@@ -73,7 +72,6 @@ public class ProductController {
             return ResponseEntity.ok().body(productService.updateProduct(productRequest, username, id));
         }
         catch(Exception ex) {
-            System.out.println(ex.getMessage());
             return ResponseEntity.badRequest().build();
         }
     }
@@ -86,7 +84,6 @@ public class ProductController {
             return ResponseEntity.ok().build();
         }
         catch(Exception ex) {
-            System.out.println(ex.getMessage());
             return ResponseEntity.badRequest().body("You cannot delete this product");
         }
     }

@@ -14,10 +14,11 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    @Query("SELECT new org.dismefront.data.product.ProductManaged(p.id, p.name, p.coordinates, p.creationDate, p.unitOfMeasure, " +
+    @Query(value = "SELECT new org.dismefront.data.product.ProductManaged(p.id, p.name, p.coordinates, p.creationDate, p.unitOfMeasure, " +
             "p.manufacturer, p.price, p.manufactureCost, p.rating, p.partNumber, p.owner, " +
             "CASE WHEN e.actor = :username OR :isAdmin = true THEN true ELSE false END) " +
-            "FROM Product p LEFT JOIN Event e ON e.entityId = p.id AND e.name = :eventName")
+            "FROM Product p LEFT JOIN Event e ON e.entityId = p.id AND e.name = :eventName",
+            countQuery = "SELECT COUNT(p) FROM Product p LEFT JOIN Event e ON e.entityId = p.id AND e.name = :eventName")
     Page<ProductManaged> findProductsWithEditableFlag(@Param("username") String username, @Param("eventName") EventName eventName, @Param("isAdmin") boolean isAdmin, Pageable pageable);
 
     @Query(value = "SELECT manufacturer_id, object_count FROM get_objects_count_by_manufacturer()", nativeQuery = true)

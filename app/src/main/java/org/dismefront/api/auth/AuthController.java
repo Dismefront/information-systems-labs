@@ -48,7 +48,6 @@ public class AuthController {
       authenticate(loginRequest.getUsername(), loginRequest.getPassword(), request);
       return ResponseEntity.ok("Login successful");
     } catch (AuthenticationException e) {
-      System.out.println(e.getMessage());
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     }
   }
