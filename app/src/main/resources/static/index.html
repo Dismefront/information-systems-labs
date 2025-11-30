@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Я не буду этим заниматься</h1>
+<script>
+    window.onload = () => {fetch("/alive").then((data) => {
+        console.log(data.status);
+        return data.json();
+    }).then(console.log);}
+</script>
+</body>
+</html>

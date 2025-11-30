@@ -1,0 +1,38 @@
+products:
+  - name: 'gooooooool____TEsttttt'
+    coordinates:
+      x: 123
+      y: 2929
+    creationDate: '2024-01-09T11:20:45+00:00'
+    unitOfMeasure: 'GRAMS'
+    manufacturer:
+      name: 'cena manufacturer'
+      officialAddress:
+        zipCode: '123456'
+        town:
+          x: 123
+          y: 2929
+          z: 8080
+      annualTurnover: 123456789
+      employeesCount: 81237
+      fullName: 'cena manufacturer full name'
+      postalAddress:
+        zipCode: '123456'
+        town:
+          x: 123
+          y: 2929
+          z: 8080
+    price: 2000
+    manufactureCost: 123
+    rating: 4
+    partNumber: 'productDPartNumber'
+    owner:
+      name: 'john down'
+      eyeColor: 'YELLOW'
+      hairColor: 'BLACK'
+      location:
+        x: 320
+        y: 123
+        z: 228
+      height: 19999
+      nationality: 'JAPAN'
