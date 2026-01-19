@@ -1,6 +1,6 @@
 package org.dismefront.data.person;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.util.Date;
 import lombok.RequiredArgsConstructor;
