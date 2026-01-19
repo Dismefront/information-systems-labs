@@ -1,4 +1,7 @@
+version: '3.8'
+
 services:
+  # Database service
   postgres:
     image: postgres:16
     container_name: app-postgres
@@ -9,9 +12,19 @@ services:
       POSTGRES_DB: appdb
       POSTGRES_USER: appuser
       POSTGRES_PASSWORD: apppassword
+      PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data/pgdata
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U appuser -d appdb"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    networks:
+      - app-network
 
+  # Object storage service
   minio:
     image: minio/minio:latest
     container_name: app-minio
@@ -25,7 +38,75 @@ services:
     command: server /data --console-address ":9001"
     volumes:
       - miniodata:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    networks:
+      - app-network
+
+  # Backend service
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: app-backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      DB_DRIVER: org.postgresql.Driver
+      DB_URL: jdbc:postgresql://postgres:5432/appdb
+      DB_USER: appuser
+      DB_PASSWORD: apppassword
+      MINIO_URL: http://minio:9000
+      MINIO_USERNAME: minioadmin
+      MINIO_PASSWORD: minioadminpassword
+      ROOT_ADMIN_PASSWORD: admin123
+      server.servlet.session.cookie.http-only: "false"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+    networks:
+      - app-network
+
+  # Frontend service
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: app-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - app-network
 
 volumes:
   pgdata:
+    driver: local
   miniodata:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge

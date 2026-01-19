@@ -8,7 +8,6 @@ import org.eclipse.persistence.config.BatchWriting;
 import org.eclipse.persistence.config.PersistenceUnitProperties;
 import org.eclipse.persistence.logging.SessionLog;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -59,7 +58,6 @@ public class EclipseLinkJPAConfiguration extends JpaBaseConfiguration {
         .build();
   }
 
-
   @Bean
   public static DataSource dataSource(Environment env) {
     final DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -94,10 +92,10 @@ public class EclipseLinkJPAConfiguration extends JpaBaseConfiguration {
     ret.put(PersistenceUnitProperties.BATCH_WRITING, BatchWriting.JDBC);
     ret.put(PersistenceUnitProperties.LOGGING_LEVEL, SessionLog.FINEST_LABEL);
     ret.put(PersistenceUnitProperties.WEAVING, "false");
-    ret.put(PersistenceUnitProperties.DDL_GENERATION, PersistenceUnitProperties.CREATE_OR_EXTEND);
+    ret.put(PersistenceUnitProperties.DDL_GENERATION, PersistenceUnitProperties.NONE);
     ret.put(
         PersistenceUnitProperties.DDL_GENERATION_MODE,
-        PersistenceUnitProperties.DDL_DATABASE_GENERATION);
+        PersistenceUnitProperties.DDL_SQL_SCRIPT_GENERATION);
     return ret;
   }
 }

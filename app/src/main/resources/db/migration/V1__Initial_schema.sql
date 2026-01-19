@@ -1,0 +1,126 @@
+-- Initial database schema for Information Systems Labs
+-- Version 1
+
+-- Users table
+CREATE TABLE IF NOT EXISTS IS1_USER (
+    id BIGSERIAL PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) UNIQUE NOT NULL
+);
+
+-- User roles table
+CREATE TABLE IF NOT EXISTS IS1_USER_ROLES (
+    user_id BIGINT NOT NULL,
+    role VARCHAR(255) NOT NULL,
+    PRIMARY KEY (user_id, role),
+    FOREIGN KEY (user_id) REFERENCES IS1_USER(id) ON DELETE CASCADE
+);
+
+-- Location table
+CREATE TABLE IF NOT EXISTS IS1_LOCATION (
+    id BIGSERIAL PRIMARY KEY,
+    x_coord BIGINT,
+    y_coord DOUBLE PRECISION,
+    z_coord FLOAT NOT NULL
+);
+
+-- Coordinates table
+CREATE TABLE IF NOT EXISTS IS1_COORDINATES (
+    id BIGSERIAL PRIMARY KEY,
+    x_coord INTEGER,
+    y_coord INTEGER NOT NULL
+);
+
+-- Country enumeration table (if needed for reference)
+-- CREATE TYPE country_enum AS ENUM ('GERMANY', 'INDIA', 'ITALY', 'JAPAN', 'THAILAND');
+
+-- Color enumeration table (if needed for reference)
+-- CREATE TYPE color_enum AS ENUM ('BLACK', 'BLUE', 'BROWN', 'GREEN', 'ORANGE', 'OTHER', 'PURPLE', 'RED', 'WHITE', 'YELLOW');
+
+-- Person table
+CREATE TABLE IF NOT EXISTS IS1_PERSON (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    eye_color VARCHAR(255) NOT NULL,
+    hair_color VARCHAR(255),
+    location_id BIGINT NOT NULL,
+    height BIGINT,
+    nationality VARCHAR(255) NOT NULL,
+    FOREIGN KEY (location_id) REFERENCES IS1_LOCATION(id)
+);
+
+-- Address table
+CREATE TABLE IF NOT EXISTS IS1_ADDRESS (
+    id BIGSERIAL PRIMARY KEY,
+    zip_code VARCHAR(13) NOT NULL,
+    town_id BIGINT,
+    FOREIGN KEY (town_id) REFERENCES IS1_LOCATION(id)
+);
+
+-- Organization table
+CREATE TABLE IF NOT EXISTS IS1_ORGANIZATION (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    official_address_id BIGINT NOT NULL,
+    annual_turnover INTEGER,
+    employees_count BIGINT,
+    full_name VARCHAR(255) UNIQUE,
+    postal_address_id BIGINT NOT NULL,
+    FOREIGN KEY (official_address_id) REFERENCES IS1_ADDRESS(id),
+    FOREIGN KEY (postal_address_id) REFERENCES IS1_ADDRESS(id)
+);
+
+-- Product table
+CREATE TABLE IF NOT EXISTS IS1_PRODUCT (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    coordinates_id BIGINT NOT NULL,
+    creation_date TIMESTAMP WITH TIME ZONE NOT NULL,
+    unit_of_measure VARCHAR(255) NOT NULL,
+    manufacturer_id BIGINT,
+    price BIGINT,
+    manufacture_cost REAL,
+    rating INTEGER,
+    part_number VARCHAR(49) NOT NULL,
+    owner_id BIGINT,
+    FOREIGN KEY (coordinates_id) REFERENCES IS1_COORDINATES(id),
+    FOREIGN KEY (manufacturer_id) REFERENCES IS1_ORGANIZATION(id),
+    FOREIGN KEY (owner_id) REFERENCES IS1_PERSON(id)
+);
+
+-- Event table
+CREATE TABLE IF NOT EXISTS IS1_EVENT (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    actor VARCHAR(255),
+    entity_id BIGINT,
+    timestamp TIMESTAMP
+);
+
+-- Import history table
+CREATE TABLE IF NOT EXISTS IS2_IMPORT_HISTORY (
+    id BIGSERIAL PRIMARY KEY,
+    status VARCHAR(255),
+    user_id BIGINT,
+    object_count BIGINT,
+    timestamp TIMESTAMP,
+    storage_key VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES IS1_USER(id)
+);
+
+-- Admin requests table
+CREATE TABLE IF NOT EXISTS IS2_ADMIN_REQUEST (
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    status VARCHAR(255) NOT NULL,
+    request_date TIMESTAMP NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES IS1_USER(id)
+);
+
+-- Create indexes for frequently queried fields
+CREATE INDEX IF NOT EXISTS idx_user_username ON IS1_USER(username);
+CREATE INDEX IF NOT EXISTS idx_person_name ON IS1_PERSON(name);
+CREATE INDEX IF NOT EXISTS idx_organization_name ON IS1_ORGANIZATION(name);
+CREATE INDEX IF NOT EXISTS idx_product_creation_date ON IS1_PRODUCT(creation_date);
+CREATE INDEX IF NOT EXISTS idx_event_entity_id_name ON IS1_EVENT(entity_id, name);
+CREATE INDEX IF NOT EXISTS idx_admin_request_status ON IS2_ADMIN_REQUEST(status);

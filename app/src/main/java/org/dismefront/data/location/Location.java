@@ -12,6 +12,7 @@ public class Location {
   private Long id;
 
   @Column private long x;
+
   @Column private double y;
 
   @Column(nullable = false)

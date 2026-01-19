@@ -29,6 +29,7 @@ dependencies {
     testImplementation(libs.junit)
     implementation(libs.guava)
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.eclipse.persistence:org.eclipse.persistence.jpa:3.0.2")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa") {
         exclude("org.hibernate", "hibernate-core")
@@ -37,6 +38,9 @@ dependencies {
     implementation("org.springframework:spring-context:6.1.14")
     implementation("org.postgresql:postgresql")
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.flywaydb:flyway-core")
+    implementation("org.flywaydb:flyway-database-postgresql")
     implementation("org.projectlombok:lombok")
     implementation("org.yaml:snakeyaml:2.3")
     implementation("io.minio:minio:8.5.2")

@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/import-history")
 public class ImportHistoryController {
 
-    private final ImportHistoryRepository importHistoryRepository;
+  private final ImportHistoryRepository importHistoryRepository;
 
-    @GetMapping("/get-all")
-    public ResponseEntity getAllImportHistory() {
-        return ResponseEntity.ok().body(importHistoryRepository.findAll());
-    }
-
+  @GetMapping("/get-all")
+  public ResponseEntity getAllImportHistory() {
+    return ResponseEntity.ok().body(importHistoryRepository.findAll());
+  }
 }

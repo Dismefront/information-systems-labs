@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class AdminHttpRequest {
-    private Long userId;
+  private Long userId;
 
-    public AdminHttpRequest() {}
+  public AdminHttpRequest() {}
 }

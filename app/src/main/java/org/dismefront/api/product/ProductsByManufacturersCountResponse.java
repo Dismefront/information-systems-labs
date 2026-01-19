@@ -7,6 +7,6 @@ import org.dismefront.data.organization.Organization;
 @Data
 @AllArgsConstructor
 public class ProductsByManufacturersCountResponse {
-    Organization organization;
-    Long count;
+  Organization organization;
+  Long count;
 }

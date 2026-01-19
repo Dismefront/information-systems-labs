@@ -11,22 +11,30 @@ public class Organization {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long
-      id; // Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+      id; // Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно
+
+  // быть уникальным, Значение этого поля должно генерироваться автоматически
 
   @Column(nullable = false)
   private String name; // Поле не может быть null, Строка не может быть пустой
 
-  @JoinColumn(nullable = false)
-  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(
+      name = "official_address_id",
+      nullable = false,
+      foreignKey = @ForeignKey(name = "fk_organization_official_address"))
+  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   private Address officialAddress; // Поле не может быть null
 
   @Column private int annualTurnover; // Значение поля должно быть больше 0
   @Column private Long employeesCount; // Поле может быть null, Значение поля должно быть больше 0
 
-  @Column
+  @Column(name = "full_name", unique = true)
   private String fullName; // Значение этого поля должно быть уникальным, Поле может быть null
 
-  @JoinColumn(nullable = false)
-  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(
+      name = "postal_address_id",
+      nullable = false,
+      foreignKey = @ForeignKey(name = "fk_organization_postal_address"))
+  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   private Address postalAddress; // Поле не может быть null
 }

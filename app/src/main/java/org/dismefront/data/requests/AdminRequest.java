@@ -1,7 +1,6 @@
 package org.dismefront.data.requests;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.dismefront.data.shared.RequestStatus;
 
@@ -10,15 +9,13 @@ import org.dismefront.data.shared.RequestStatus;
 @Data
 public class AdminRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    RequestStatus status;
+  @Column
+  @Enumerated(EnumType.STRING)
+  RequestStatus status;
 
-    @Column
-    private Long userId;
-
+  @Column private Long userId;
 }

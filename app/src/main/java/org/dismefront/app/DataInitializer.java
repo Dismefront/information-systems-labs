@@ -1,9 +1,6 @@
 package org.dismefront.app;
 
-import jakarta.transaction.Transactional;
 import java.util.Set;
-
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.dismefront.data.location.Location;
 import org.dismefront.data.person.Person;
