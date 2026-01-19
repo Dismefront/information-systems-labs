@@ -1,6 +1,6 @@
 package org.dismefront.data.organization;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.util.Date;
 import org.dismefront.api.organization.OrganizationRequest;

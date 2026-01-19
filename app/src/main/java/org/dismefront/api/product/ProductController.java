@@ -3,6 +3,8 @@ package org.dismefront.api.product;
 import java.security.Principal;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.dismefront.app.exception.BusinessLogicException;
+import org.dismefront.app.exception.ValidationException;
 import org.dismefront.data.product.ProductService;
 import org.dismefront.data.shared.Role;
 import org.dismefront.data.user.User;
@@ -21,24 +23,11 @@ public class ProductController {
   @PostMapping("/create")
   public ResponseEntity create(@RequestBody ProductRequest productRequest, Principal principal) {
     String username = principal.getName();
-    try {
-      if (productRequest.getName().isEmpty()) {
-        return ResponseEntity.badRequest().body("Name cannot be empty");
-      }
-      if (productRequest.getPrice() <= 0) {
-        return ResponseEntity.badRequest().body("Price must be greater than 0");
-      }
-      if (productRequest.getPartNumber().isEmpty()
-          || productRequest.getPartNumber().length() >= 49) {
-        return ResponseEntity.badRequest().body("Part number must be less than 49 symbols long");
-      }
-      if (productRequest.getRating() <= 0) {
-        return ResponseEntity.badRequest().body("Rating must be greater than 0");
-      }
-      return ResponseEntity.ok().body(productService.saveProduct(productRequest, username));
-    } catch (Exception ex) {
-      return ResponseEntity.badRequest().build();
-    }
+    
+    // Validation moved to service layer or here
+    validateProductRequest(productRequest);
+    
+    return ResponseEntity.ok().body(productService.saveProduct(productRequest, username));
   }
 
   @GetMapping("/list")
@@ -60,35 +49,18 @@ public class ProductController {
   public ResponseEntity update(
       @PathVariable long id, @RequestBody ProductRequest productRequest, Principal principal) {
     String username = principal.getName();
-    try {
-      if (productRequest.getName().isEmpty()) {
-        return ResponseEntity.badRequest().body("Name cannot be empty");
-      }
-      if (productRequest.getPrice() <= 0) {
-        return ResponseEntity.badRequest().body("Price must be greater than 0");
-      }
-      if (productRequest.getPartNumber().isEmpty()
-          || productRequest.getPartNumber().length() >= 49) {
-        return ResponseEntity.badRequest().body("Part number must be less than 49 symbols long");
-      }
-      if (productRequest.getRating() <= 0) {
-        return ResponseEntity.badRequest().body("Rating must be greater than 0");
-      }
-      return ResponseEntity.ok().body(productService.updateProduct(productRequest, username, id));
-    } catch (Exception ex) {
-      return ResponseEntity.badRequest().build();
-    }
+    
+    // Validation moved to service layer or here
+    validateProductRequest(productRequest);
+    
+    return ResponseEntity.ok().body(productService.updateProduct(productRequest, username, id));
   }
 
   @PostMapping("/delete/{id}")
   public ResponseEntity delete(@PathVariable long id, Principal principal) {
     String username = principal.getName();
-    try {
-      productService.deleteProduct(id, username);
-      return ResponseEntity.ok().build();
-    } catch (Exception ex) {
-      return ResponseEntity.badRequest().body("You cannot delete this product");
-    }
+    productService.deleteProduct(id, username);
+    return ResponseEntity.ok().build();
   }
 
   @GetMapping("/by-manufacturer")
@@ -115,5 +87,21 @@ public class ProductController {
   public ResponseEntity getProductsByManufacturerId(@RequestParam double percent) {
     productService.reducePricesByPercent(percent);
     return ResponseEntity.ok().build();
+  }
+  
+  private void validateProductRequest(ProductRequest productRequest) {
+    if (productRequest.getName() == null || productRequest.getName().isEmpty()) {
+      throw new ValidationException("Name cannot be empty");
+    }
+    if (productRequest.getPrice() <= 0) {
+      throw new ValidationException("Price must be greater than 0");
+    }
+    if (productRequest.getPartNumber() == null || productRequest.getPartNumber().isEmpty()
+        || productRequest.getPartNumber().length() >= 49) {
+      throw new ValidationException("Part number must be less than 49 symbols long");
+    }
+    if (productRequest.getRating() <= 0) {
+      throw new ValidationException("Rating must be greater than 0");
+    }
   }
 }
