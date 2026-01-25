@@ -27,7 +27,7 @@ public class SecurityConfig {
 
   @Bean
   public PasswordEncoder passwordEncoder() {
-    // Использую Deprecated метод потому что только он из коробки дает sha-384
+
     return new MessageDigestPasswordEncoder("SHA-384");
   }
 

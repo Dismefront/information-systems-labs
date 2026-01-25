@@ -13,9 +13,9 @@ public class Address {
   private Long id;
 
   @Column(nullable = false, length = 13)
-  private String zipCode; // Длина строки не должна быть больше 13, Поле не может быть null
+  private String zipCode;
 
   @JoinColumn(name = "town_id", foreignKey = @ForeignKey(name = "fk_address_town"))
   @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-  private Location town; // Поле может быть null
+  private Location town;
 }

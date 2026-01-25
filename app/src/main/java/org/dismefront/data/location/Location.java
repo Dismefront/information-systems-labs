@@ -16,5 +16,5 @@ public class Location {
   @Column private double y;
 
   @Column(nullable = false)
-  private Float z; // Поле не может быть null
+  private Float z;
 }

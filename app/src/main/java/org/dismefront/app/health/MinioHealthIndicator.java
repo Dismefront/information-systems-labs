@@ -29,7 +29,7 @@ public class MinioHealthIndicator implements HealthIndicator {
               .credentials(minioUsername, minioPassword)
               .build();
 
-      // Try to ping MinIO by checking if we can build the client
+
       minioClient.listBuckets();
 
       return Health.up().withDetail("service", "MinIO").withDetail("url", minioUrl).build();

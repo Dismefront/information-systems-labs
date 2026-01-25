@@ -15,26 +15,26 @@ public class Person {
   private Long id;
 
   @Column(nullable = false)
-  private String name; // Поле не может быть null, Строка не может быть пустой
+  private String name;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
-  private Color eyeColor; // Поле не может быть null
+  private Color eyeColor;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
-  private Color hairColor; // Поле может быть null
+  private Color hairColor;
 
   @JoinColumn(
       name = "location_id",
       nullable = false,
       foreignKey = @ForeignKey(name = "fk_person_location"))
   @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-  private Location location; // Поле не может быть null
+  private Location location;
 
-  @Column private Long height; // Поле может быть null, Значение поля должно быть больше 0
+  @Column private Long height;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
-  private Country nationality; // Поле не может быть null
+  private Country nationality;
 }

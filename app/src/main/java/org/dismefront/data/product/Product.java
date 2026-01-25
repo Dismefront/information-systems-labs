@@ -21,40 +21,38 @@ public class Product {
   private Long id;
 
   @Column(nullable = false)
-  private String name; // Поле не может быть null, Строка не может быть пустой
+  private String name;
 
   @JoinColumn(
       name = "coordinates_id",
       nullable = false,
       foreignKey = @ForeignKey(name = "fk_product_coordinates"))
   @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-  private Coordinates coordinates; // Поле не может быть null
+  private Coordinates coordinates;
 
   @Column(nullable = false)
   private ZonedDateTime
-      creationDate; // Поле не может быть null, Значение этого поля должно генерироваться
-
-  // автоматически
+      creationDate;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
-  private UnitOfMeasure unitOfMeasure; // Поле не может быть null
+  private UnitOfMeasure unitOfMeasure;
 
   @JoinColumn(
       name = "manufacturer_id",
       nullable = false,
       foreignKey = @ForeignKey(name = "fk_product_manufacturer"))
   @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-  private Organization manufacturer; // Поле не может быть null
+  private Organization manufacturer;
 
-  @Column private long price; // Значение поля должно быть больше 0
+  @Column private long price;
   @Column private float manufactureCost;
-  @Column private int rating; // Значение поля должно быть больше 0
+  @Column private int rating;
 
   @Column
-  private String partNumber; // Длина строки не должна быть больше 49, Поле не может быть null
+  private String partNumber;
 
   @JoinColumn(name = "owner_id", foreignKey = @ForeignKey(name = "fk_product_owner"))
   @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-  private Person owner; // Поле может быть null
+  private Person owner;
 }
