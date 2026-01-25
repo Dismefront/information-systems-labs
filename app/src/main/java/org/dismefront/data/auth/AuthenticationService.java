@@ -15,18 +15,19 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-    
-    private final AuthenticationManager authenticationManager;
-    
-    public void authenticate(String username, String password, HttpServletRequest request) 
-            throws AuthenticationException {
-        Authentication authentication = authenticationManager.authenticate(
+
+  private final AuthenticationManager authenticationManager;
+
+  public void authenticate(String username, String password, HttpServletRequest request)
+      throws AuthenticationException {
+    Authentication authentication =
+        authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(username, password));
-        
-        SecurityContext sc = SecurityContextHolder.getContext();
-        sc.setAuthentication(authentication);
-        
-        HttpSession session = request.getSession(true);
-        session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, sc);
-    }
+
+    SecurityContext sc = SecurityContextHolder.getContext();
+    sc.setAuthentication(authentication);
+
+    HttpSession session = request.getSession(true);
+    session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, sc);
+  }
 }

@@ -10,8 +10,7 @@ import org.dismefront.data.address.Address;
 public class Organization {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long
-      id;
+  private Long id;
 
   @Column(nullable = false)
   private String name;

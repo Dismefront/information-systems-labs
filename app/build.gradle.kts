@@ -37,6 +37,7 @@ dependencies {
     implementation("org.projectlombok:lombok")
     implementation("org.yaml:snakeyaml:2.3")
     implementation("io.minio:minio:8.5.2")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
     annotationProcessor("org.projectlombok:lombok")
 }
 

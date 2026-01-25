@@ -15,8 +15,7 @@ public class ProductManaged {
 
   private Coordinates coordinates;
 
-  private java.time.ZonedDateTime
-      creationDate;
+  private java.time.ZonedDateTime creationDate;
 
   private UnitOfMeasure unitOfMeasure;
 

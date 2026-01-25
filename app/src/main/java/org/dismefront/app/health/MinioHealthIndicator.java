@@ -29,7 +29,6 @@ public class MinioHealthIndicator implements HealthIndicator {
               .credentials(minioUsername, minioPassword)
               .build();
 
-
       minioClient.listBuckets();
 
       return Health.up().withDetail("service", "MinIO").withDetail("url", minioUrl).build();

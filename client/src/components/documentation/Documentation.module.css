@@ -1,0 +1,46 @@
+.documentation {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.class-info, .enum-info {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.class-info h2, .enum-info h2 {
+    color: #333;
+    margin-top: 0;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+.field {
+    margin: 10px 0;
+    padding: 8px;
+    background: white;
+    border-radius: 4px;
+    border-left: 4px solid #007bff;
+}
+
+.field span {
+    font-weight: bold;
+    color: #007bff;
+    margin-right: 10px;
+}
+
+.enum-info ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.enum-info li {
+    background: white;
+    margin: 5px 0;
+    padding: 8px 15px;
+    border-radius: 4px;
+    border-left: 4px solid #28a745;
+}
