@@ -31,8 +31,7 @@ public class Product {
   private Coordinates coordinates;
 
   @Column(nullable = false)
-  private ZonedDateTime
-      creationDate;
+  private ZonedDateTime creationDate;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
@@ -49,8 +48,7 @@ public class Product {
   @Column private float manufactureCost;
   @Column private int rating;
 
-  @Column
-  private String partNumber;
+  @Column private String partNumber;
 
   @JoinColumn(name = "owner_id", foreignKey = @ForeignKey(name = "fk_product_owner"))
   @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)

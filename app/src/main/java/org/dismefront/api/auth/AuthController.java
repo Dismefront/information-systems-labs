@@ -1,7 +1,6 @@
 package org.dismefront.api.auth;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.dismefront.app.exception.ValidationException;
@@ -28,7 +27,8 @@ public class AuthController {
   public ResponseEntity<String> login(
       @RequestBody LoginRequest loginRequest, HttpServletRequest request) {
     try {
-      authenticationService.authenticate(loginRequest.getUsername(), loginRequest.getPassword(), request);
+      authenticationService.authenticate(
+          loginRequest.getUsername(), loginRequest.getPassword(), request);
       return ResponseEntity.ok("Login successful");
     } catch (AuthenticationException e) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
@@ -38,12 +38,14 @@ public class AuthController {
   @PostMapping("/register")
   public ResponseEntity register(
       @RequestBody RegisterRequest registerRequest, HttpServletRequest request) {
-    
+
     validateRegistrationRequest(registerRequest);
-    
+
     try {
-      User user = userService.registerNewUser(registerRequest.getUsername(), registerRequest.getPassword());
-      authenticationService.authenticate(registerRequest.getUsername(), registerRequest.getPassword(), request);
+      User user =
+          userService.registerNewUser(registerRequest.getUsername(), registerRequest.getPassword());
+      authenticationService.authenticate(
+          registerRequest.getUsername(), registerRequest.getPassword(), request);
       return ResponseEntity.ok(user);
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -56,7 +58,7 @@ public class AuthController {
     String username = authentication.getName();
     return ResponseEntity.ok().body(userRepository.findByUsername(username));
   }
-  
+
   private void validateRegistrationRequest(RegisterRequest registerRequest) {
     if (!registerRequest.getPassword().equals(registerRequest.getPasswordRepeat())) {
       throw new ValidationException("Passwords do not match");

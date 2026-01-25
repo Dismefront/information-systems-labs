@@ -29,9 +29,9 @@ public class PersonController {
   @PostMapping("/create")
   public ResponseEntity add(@RequestBody PersonRequest personRequest, Principal principal) {
     String username = principal.getName();
-    
+
     validatePersonRequest(personRequest);
-    
+
     return ResponseEntity.ok().body(personService.savePerson(personRequest, username));
   }
 
@@ -39,9 +39,9 @@ public class PersonController {
   public ResponseEntity add(
       @PathVariable long id, @RequestBody PersonRequest personRequest, Principal principal) {
     String username = principal.getName();
-    
+
     validatePersonRequest(personRequest);
-    
+
     return ResponseEntity.ok().body(personService.updatePerson(personRequest, username, id));
   }
 
@@ -59,7 +59,7 @@ public class PersonController {
     return ResponseEntity.ok()
         .body(personService.getPersonList(page, size, principal.getName(), isAdmin));
   }
-  
+
   private void validatePersonRequest(PersonRequest personRequest) {
     if (personRequest.getName() == null || personRequest.getName().isEmpty()) {
       throw new ValidationException("Name cannot be empty");

@@ -1,0 +1,48 @@
+.requirements {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.requirements h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 3px solid #007bff;
+    padding-bottom: 15px;
+}
+
+.requirement-section {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-left: 5px solid #007bff;
+}
+
+.requirement-section h2 {
+    color: #007bff;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.requirement-section p {
+    line-height: 1.6;
+    color: #555;
+}
+
+.requirement-section ul {
+    padding-left: 20px;
+}
+
+.requirement-section li {
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+.requirement-section code {
+    background: #e9ecef;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+}
