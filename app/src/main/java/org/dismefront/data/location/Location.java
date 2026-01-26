@@ -12,8 +12,9 @@ public class Location {
   private Long id;
 
   @Column private long x;
+
   @Column private double y;
 
   @Column(nullable = false)
-  private Float z; // Поле не может быть null
+  private Float z;
 }

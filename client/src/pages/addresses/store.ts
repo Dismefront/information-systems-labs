@@ -1,4 +1,4 @@
-import { API_ENDPOINT } from '@/App'; // Adjust with actual API endpoint
+import { API_ENDPOINT } from '@/App';
 import { createEffect, createEvent, createStore, sample } from 'effector';
 
 interface AddressProps {

@@ -11,8 +11,8 @@ public class Coordinates {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column private int x; // Максимальное значение поля: 988
+  @Column private int x;
 
   @Column(nullable = false)
-  private Integer y; // Поле не может быть null
+  private Integer y;
 }

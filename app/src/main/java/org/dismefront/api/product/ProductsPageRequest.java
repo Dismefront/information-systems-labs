@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ProductsPageRequest {
-    private int page;
-    private int size;
+  private int page;
+  private int size;
 }

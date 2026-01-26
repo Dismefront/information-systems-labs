@@ -13,7 +13,7 @@ export const UpdateOrganizationPopup: React.FC = () => {
     const [addressList, setAddressList] = useState<any[]>([]);
 
     useEffect(() => {
-        // Fetch available addresses for selection
+
         fetch(`${API_ENDPOINT}/address/get-all`, {
             method: 'get',
             credentials: 'include',

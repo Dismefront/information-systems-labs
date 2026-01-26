@@ -1,6 +1,7 @@
 package org.dismefront.data.coordinates;
 
-import jakarta.transaction.Transactional;
+import java.sql.Timestamp;
+import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import org.dismefront.api.coordinates.CoordinatesRequest;
 import org.dismefront.data.event.Event;
@@ -11,52 +12,63 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 @Service
 @RequiredArgsConstructor
 public class CoordinatesService {
 
-    private final CoordinatesRepository coordinatesRepository;
-    private final EventRepository eventRepository;
+  private final CoordinatesRepository coordinatesRepository;
+  private final EventRepository eventRepository;
 
-    @org.springframework.transaction.annotation.Transactional
-    public Coordinates updateCoordinates(CoordinatesRequest coordinatesRequest, String username, Long coordinatesId) {
-        Coordinates coordinates = coordinatesRepository.getReferenceById(coordinatesId);
-        coordinatesParams(coordinatesRequest, coordinates);
+  @org.springframework.transaction.annotation.Transactional
+  public Coordinates updateCoordinates(
+      CoordinatesRequest coordinatesRequest, String username, Long coordinatesId) {
+    Coordinates coordinates = coordinatesRepository.getReferenceById(coordinatesId);
+    coordinatesParams(coordinatesRequest, coordinates);
 
-        Event event = new Event(EventName.COORDINATE_UPDATED, username, coordinates.getId(), new Timestamp(new Date().getTime()));
-        eventRepository.save(event);
-        return coordinatesRepository.save(coordinates);
-    }
+    Event event =
+        new Event(
+            EventName.COORDINATE_UPDATED,
+            username,
+            coordinates.getId(),
+            new Timestamp(new Date().getTime()));
+    eventRepository.save(event);
+    return coordinatesRepository.save(coordinates);
+  }
 
-    @org.springframework.transaction.annotation.Transactional
-    public Coordinates saveCoordinates(CoordinatesRequest coordinatesRequest, String username) {
-        Coordinates coordinates = new Coordinates();
-        coordinatesParams(coordinatesRequest, coordinates);
+  @org.springframework.transaction.annotation.Transactional
+  public Coordinates saveCoordinates(CoordinatesRequest coordinatesRequest, String username) {
+    Coordinates coordinates = new Coordinates();
+    coordinatesParams(coordinatesRequest, coordinates);
 
-        Coordinates savedCoordinates = coordinatesRepository.save(coordinates);
-        coordinatesRepository.flush();
-        Event event = new Event(EventName.COORDINATE_CREATED, username, savedCoordinates.getId(), new Timestamp(new Date().getTime()));
-        eventRepository.save(event);
-        return savedCoordinates;
-    }
+    Coordinates savedCoordinates = coordinatesRepository.save(coordinates);
+    coordinatesRepository.flush();
+    Event event =
+        new Event(
+            EventName.COORDINATE_CREATED,
+            username,
+            savedCoordinates.getId(),
+            new Timestamp(new Date().getTime()));
+    eventRepository.save(event);
+    return savedCoordinates;
+  }
 
-    private void coordinatesParams(CoordinatesRequest coordinatesRequest, Coordinates coordinates) {
-        coordinates.setX(coordinatesRequest.getX());
-        coordinates.setY(coordinatesRequest.getY());
-    }
+  private void coordinatesParams(CoordinatesRequest coordinatesRequest, Coordinates coordinates) {
+    coordinates.setX(coordinatesRequest.getX());
+    coordinates.setY(coordinatesRequest.getY());
+  }
 
-    @org.springframework.transaction.annotation.Transactional
-    public void deleteCoordinates(Long id, String username) {
-        coordinatesRepository.deleteById(id);
-        Event event = new Event(EventName.COORDINATE_DELETED, username, id, new Timestamp(new Date().getTime()));
-        eventRepository.save(event);
-    }
+  @org.springframework.transaction.annotation.Transactional
+  public void deleteCoordinates(Long id, String username) {
+    coordinatesRepository.deleteById(id);
+    Event event =
+        new Event(EventName.COORDINATE_DELETED, username, id, new Timestamp(new Date().getTime()));
+    eventRepository.save(event);
+  }
 
-    public Page<CoordinatesManaged> getCoordinatesList(int page, int size, String username, boolean isAdmin) {
-        Pageable pageable = PageRequest.of(page, size);
-        return coordinatesRepository.findCoordinatesWithEditableFlag(username, EventName.COORDINATE_CREATED, isAdmin, pageable);
-    }
+  public Page<CoordinatesManaged> getCoordinatesList(
+      int page, int size, String username, boolean isAdmin) {
+    Pageable pageable = PageRequest.of(page, size);
+    return coordinatesRepository.findCoordinatesWithEditableFlag(
+        username, EventName.COORDINATE_CREATED, isAdmin, pageable);
+  }
 }
